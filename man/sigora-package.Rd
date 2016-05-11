@@ -1,148 +1,135 @@
 \name{sigora-package}
-\alias{sigora}
+\alias{sigora-package}
 \docType{package}
 \title{
-Signature Overrepresentation Analysis
+SIGNATURE OVERREPRESENTATION ANALYSIS
 }
 \description{
-This section gives a brief overview of the most important functions of the pathway 
-analysis package SIGORA. This documentation uses the terminology described in our 
-manuscript submitted to Bioinformatics, 2012.
- In short: a GPS (gene pair signature) is a (weighted) pair of genes that 
- \emph{as a combination} occurs only in a single pathway within a pathway repository.
- A query list is a vector containing a gene list of interest (e.g. genes that 
- are differentially expressed in a particular condition). 
-A \emph{present} GPS is a GPS for which both components are in the query list.
-SIGORA identifies relevant pathways based on the over-representation analysis 
-of their (present) GPS.
+This package implements the pathway analysis method SIGORA. For an in
+depth description of the method, please see our manuscript in PeerJ.  In
+short: a \emph{GPS} (gene pair signature) is a (weighted) pair of genes that
+\emph{as a combination} occurs only in a single pathway within a pathway
+repository.  A query list is a vector containing a gene list of interest
+(e.g. genes that are differentially expressed in a particular
+condition).  A \emph{present} GPS is a GPS for which both components are
+in the query list.  SIGORA identifies relevant pathways based on the
+over-representation analysis of their (present) GPS.
 }
 \details{
-\tabular{ll}{
-Package: \tab sigora\cr
-Type: \tab Package\cr
-Version: \tab 0.9.2\cr
-Date: \tab 2012-06-13\cr
-License: \tab GPL-2\cr
-LazyLoad: \tab yes\cr
-}
+
 \subsection{Getting started}{
-To install from CRAN:\cr 
->\code{install.packages('sigora')}\cr
+
+To install from CRAN:\cr
+\code{install.packages('sigora')}\cr
 As an alternative, you can download the tarball and install from the local file: \cr
->\code{install.packages('sigora_0.9.2.tar.gz',type='source',repos = NULL)} \cr
-To load the library:\cr 
-> \code{library('sigora')}\cr 
-Now it would be a good idea to look at a man page.\cr 
->\code{?sigs}\cr 
-This shows the man page of sigs, SIGORA's most important function.\cr 
-You will notice the following entry for the parameter \code{samplename}:\cr 
-\emph{"A user specified list of genes of interest ('query list'), as a vector of
-  SIGORA IDs. To obtain such a vector, import the list of
-  ENSEMBL/Entrez IDs using \code{scan(..,what='character')} and apply the
-  appropriate mapping_function (\code{entrez_converter} or \code{ens_converter}) to it."}\cr
-We will get to this shortly, but let's try the example from the 'example' section of\code{
-?sigs} first. \cr  
+\code{install.packages("sigora_2.0.1.tar.gz",type="source",repos = NULL)} \cr
+To load the library:\cr
+\code{library("sigora")}
 }
-\subsection{Examining a pre-loaded example set}{
-A few datasets are pre-loaded. For example:\cr 
-\code{dengue_hoang} is a Dengue fever dataset 
-(significantly up-regulated genes from GSE25001, Hoang et al. 2010),\cr
-\code{rcc_lenburg} a Renal Cell Carcinoma set 
-(Differentially expressed genes in GSE781, Lenburg et al. 2003). 
-\cr You could run the following:\cr 
-> \code{sigs(dengue_hoang,'k' ,1 ,level=2)}\cr 
-This runs Signature Over-representation on the Dengue Fever dataset, using 
-KEGG_signatures ('k'), including marker genes and examines two levels of the hierarchy in the repository (see manuscript).
- Once \code{sigs} finishes, you are presented with the list of pathways that it deems to be statistically significant for this dataset, along with a few lines on how to access the results and what you might want to do next with them.\cr 
- The output of the above command should end on something like:
-\preformatted{
-[1] ##################### Highlighted Pathways: ##################
-[1] Systemic lupus erythematosus          Hepatitis C                          
-[3] Complement and coagulation cascades   RIG-I-like receptor signaling pathway
-[5] Lysosome                              Chemokine signaling pathway          
-[7] Osteoclast differentiation            Cytosolic DNA-sensing pathway        
-[9] Antigen processing and presentation   NOD-like receptor signaling pathway   
-[11] Toll-like receptor signaling pathway                                      
-    ##############################################################           
-    You might also want to take a look at summary_results to see all pathways 
-    for which a GPS was found, then run det_out(filename) and related_genes() 
-  ** Please note that the recommended cut-off threshold for significance in
-     this case is:  [1] 3.37e-05
-    ##############################################################
-   user  system elapsed
- 12.465   1.160  13.628
+
+\subsection{Motivation --A thought experiment}{
+Imagine you randomly selected 3 KEGG pathways, and then randomly selected a total
+of 50 genes from all genes that that are associated with any of these pathways.
+Using traditional methods (hypergeometric test using individual genes), how many pathways would you estimate to show up as statistically overrepresented
+in this "query list" of 50 genes?  Let us do this experiment!  Everything
+related to human KEGG Pathways can be found in \code{kegH}.  A function
+to randomly select n genes from m reandomly selected pathways is
+\code{genesFromRandomPathways}.  The traditional Overrepresentation
+Analysis (which is the basis for many popular tools) is available through
+\code{ora}.  Putting these together:\cr
+
+\code{data(kegH)}\cr
+\code{a1<-genesFromRandomPathways(seed=12345,kegH,3,50)}\cr
+## originally selected pathways:\cr
+\code{a1[["selectedPathways"]]}\cr
+## what are the genes
+\code{a1[["genes"]]}\cr
+## Traditional ora identifies dozens of statistically significant pathways!\cr
+\code{ora(a1[["genes"]],kegH))}\cr
+## Now let us try sigora with the same input:\cr
+\code{sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],level = 4)}\cr
+ ## Again, the three originally selected pathways were:\cr
+\code{a1[["selectedPathways"]]}\cr
+ 
+You might want to rerun the above few lines of code with different values for
+\code{seed} and convince yourself that there indeed is a need for a new way of
+pathway analysis.
 }
-Let's assume you were interested in the genes that contribute strongly to the evidence for 
-the 4th ranked pathway (\emph{'RIG-I-like receptor signaling pathway'}), you could try the following: \cr
-> \code{get_genes(4,0.5)}\cr
-# This returns the list genes that are involved in the present GPS of the \cr# 4th ranked pathway with weights better than 0.5. 
-\preformatted{
-                  gene_name  sigora_internal_id  ENSEMBL_ID   
-16460               IRF7               17225 ENSG00000185507  
-12781             CXCL10               25212 ENSG00000169245  
-3630               DHX58               50252 ENSG00000108771  
-3439               DDX58               55854 ENSG00000107201  
-18639             TBKBP1               56118 ENSG00000198933  
-4453               IFIH1               73750 ENSG00000115267  
-16985              ISG15               84312 ENSG00000187608  
+
+\subsection{Available Pathway-GPS repositories in SIGORA}{
+  
+The current version of the package comes with precomputed
+GPS-repositories for  \emph{KEGG} human and mouse (kegH and kegM respectively),
+as well as for \emph{Reactome} human and mouse (reaH and reaM
+respectively).  The package provides a function for creating
+GPS-repositories from user's own gene-function repository of choice
+(example  \emph{Gene Ontology Biological Processes}).  The following section
+describes this process of creating one's own GPS-repositories using the
+\emph{PCI-NCI} pathways from National Cancer Institute as an example.
 }
- }     
+
+\subsection{Creating a GPS repository}{
+You can create your own GPS repositories using the \code{makeGPS()} function.
+There are no particular requirements on the format of your source
+repository, except: it should be provided either a tab delimited file or a
+dataframe with \bold{three columns in the following order: \cr PathwayID, PathwayName,
+Gene.}\cr
+
+\code{
+data(nciTable)} \cr
+## what does the input look like? \cr
+\code{
+head(nciTable)} \cr
+## create a SigObject. use the saveFile parameter for future reuse. \cr
+\code{nciH<-makeGPS(pathwayTable=nciTable, saveFile='nciH.rda')} \cr
+\code{ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)}\cr
+\code{ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)}\cr
+}
+
+\subsection{Analysing your data}{
+To preform Signature Overrepresentation Analysis, use the function
+\code{sigora}.  For traditional Overrepresentation Analysis, use
+the function \code{ora}.
+}
+
 \subsection{Exporting the results}{
-You also have access to all results and calculations: \cr 
-> \code{ls()}\cr
-\code{[1] "detailed_results" "summary_results" "padj_number"
-}\cr
-\code{detailed_results} contains all present GPS (i.e. all Gene-Pair-Signatures 
-for which both component genes were in the input list)\cr
-\code{summary_results} gives an overview of the over-representation analysis of the GPS: i.e. number of present GPS per pathway, the sum of their weights, 
-the associated p-value and adjusted p-values and the parameters of the 
-hypergeometric function that produces the p-values.\cr
-\code{padj_number} is the number of tests and is used to adjust the 
-p-values for multiple testing. By default, this is set to the number of all 
-pathways in the repository for which at the specified level of hierarchy a 
-possible GPS exists.\cr  
-> \code{head(summary_results)} \cr 
-> \code{write.table(summary_results,'myresults.txt')}\cr 
-> \code{?det_out}\cr 
-> \code{det_out('some_file.txt')}\cr 
-> \code{?related_genes}\cr 
-This function gives the list of genes involved in all present GPS  per pathway.
-} 
-\subsection{Examining own your datasets}{
- As mentioned above, to examine your own datasets you first need to convert 
-the identifiers of your genes of interest to SIGORA IDs. This can be done using \code{ens_converter} which converts human or mouse ENSEMBL IDs to SIGORA IDs or using \code{entrez_converter} which converts human or mouse Entrez IDs to SIGORA IDs. \cr 
-As a last resort, \code{genename_converter} can be used to map gene names to SIGORA IDs, but whenever possible, you should use ENSEMBL IDs \cr 
-\code{idb_to_genename} and \code{idb_converter} can be used to reverse these mappings.\cr 
-So, if you have a file with human ENSEMBL IDs, you would run:\cr 
->\code{tmp<-scan('test_ensemble_data.txt', what='character')}\cr 
->\code{mysample<-ens_converter(tmp)}\cr 
-## It would be a good idea to make sure that the mapping went OK:\cr 
->\code{length(mysample)}\cr 
-## Now, you can proceed with sigs as described above.\cr 
+  Simply provide a file name to the \code{saveFile} parameter of \code{sigora}, i.e. (for the above
+  experiment):\cr
+  \code{sigRes<- sigora(kegH,queryList= a1$genes,level= 2, saveFile="myResultsKEGG.csv")}\cr
+You will notice that the file also contains the list of the relevant
+  genes from the query list in each pathway. The genes are listed as
+  human readable gene symbols and sorted by their contribution to the statistical significance of the pathway.   
 }
-  }
+
+\subsection{Gene identifier mapping}{
+Mappings between \emph{ENSEMBL}-IDS,\emph{ENTREZ}-IDS and Gene-Symbols are performed
+automatically. You can, for instance, create a \emph{GPS}-repository
+using \emph{ENSEMBL}-IDs and perform \emph{Signature Overrepresentation
+ Analysis} using this repository on a list of \emph{ENTREZ}-IDs. 
+}
+}
+
 \author{
-Amir Foroushani \cr
-Maintainer:  <amir.foroushani@teagasc.ie>
+Amir B.K. Foroushani, Fiona S.L. Brinkman, David J. Lynn
+
+Maintainer: Amir Foroushani <sigora.dev@gmail.com>
 }
+
+\references{
+Foroushani AB, Brinkman FS and Lynn DJ (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based on the over-representation of their gene-pair signatures.}\emph{PeerJ}, \bold{1}
+}
+
 \keyword{ package }
-\examples{
-\dontrun{
-### sigs is the most important function of sigora. 
-## A few datasets are already preloaded, for example dengue_hoang is a 
-##list of differentially up-regulated genes in a Dengue Fever Data.
-sigs(dengue_hoang,'k',1,level=2)
-### There are various converters for mapping different gene identifier types to
-## SIGORA IDs.
-tmp<-scan('test_ensemble_data.txt', what='character')
-mysample<-ens_converter(tmp)
-sigs(mysample,'k',1,level=2)
-head(summary_results)
-det_out("detailed_evidence.txt")
-related_genes()
-### Returns list of human marker genes in KEGG as SIGORA IDs:
-tmp<-get_marker_genes(archive='keg')
-# convert the above results to human readable gene names and ENSEMBL ids
-idb_converter(tmp)
+\seealso{
+\code{\link{sigora}}, \code{\link{makeGPS}}, \code{\link{ora}} 
 }
+\examples{
+barplot(table(kegH$L1$degs),col="red",
+main="distribution of number of functions per gene in KEGG human pathways.",
+ylab="frequency",xlab="number of functions per gene")
+## creating your own GPS repository
+nciH<-makeGPS(pathwayTable=nciTable, saveFile='nciH.rda')
+ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
+## signature overrepresentation analysis:
+sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
 }

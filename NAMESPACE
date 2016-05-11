@@ -1,1 +1,3 @@
-export(sigs,coexp_sigs,entrez_converter,ens_converter,related_genes,det_out,genename_converter,idb_to_genename,idb_converter, sigs_background,create_bg,get_genes)
+exportPattern("^[[:alpha:]]+")
+importFrom("stats", "aggregate", "p.adjust", "phyper")
+importFrom("utils", "data", "read.table", "write.table")

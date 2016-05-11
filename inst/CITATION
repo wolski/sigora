@@ -1,0 +1,13 @@
+citHeader("To cite the sigora package in publications use:")
+
+citEntry(entry="Article",
+  title="Pathway-GPS and SIGORA: identifying relevant pathways based on the over-representation of their gene-pair signatures",
+  author= personList(as.person("A. B. Foroushani"),
+      as.person("F. S. Brinkman"),
+      as.person("D.J. Lynn")),
+  journal="PeerJ",
+  volume=1,
+  year="2013",
+  publisher="PeerJ Inc",
+ textVersion ="Foroushani AB, Brinkman FS and Lynn DJ (2013). Pathway-GPS and SIGORA:identifying relevant pathways based on the over-representation of their
+gene-pair signatures. PeerJ, 1, pp. e229.")
