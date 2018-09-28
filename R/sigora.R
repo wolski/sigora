@@ -37,7 +37,8 @@ sigora <-
             print(paste("Mapped identifiers from" ,colnames(idmap)[t2]," to ",colnames(idmap)[t1],"..."))
         }
         for(ind in 1:level){
-            v1<-GPSrepo[[eval(jj[ind])]]
+ v1<-GPSrepo[[paste("L",ind,sep='')]]
+            #v1<-GPSrepo[[eval(jj[ind])]]
             com1 <- paste("weights<-", weighting.method, "(v1$degs[v1$gs[v1$GPS[,1]]],
 v1$degs[v1$gs[v1$GPS[,2]]])")
             eval(parse(text = com1))
@@ -45,16 +46,19 @@ v1$degs[v1$gs[v1$GPS[,2]]])")
                                v1$gs[v1$GPS[,2]],
                                v1$ps[v1$GPS[,3]],
                                round(weights*100)/100))
-        }
+rm(v1)       
+ }
         colnames(hh)<-c("gene1","gene2","pathway","weight")      
         if(markers==TRUE){
             for(ind in 1:level){
-                v1<-GPSrepo[[eval(jj[ind])]]
+                #v1<-GPSrepo[[eval(jj[ind])]]
+	v1<-GPSrepo[[paste("L",ind,sep='')]]
                 hh<-rbind(hh,cbind(v1$gs[v1$PU[,1]],
                                    v1$gs[v1$PUG[,1]],
                                    v1$ps[v1$PUG[,2]],
                                    1))
-            }
+rm(v1)           
+ }
         }
         if(is.null(queryList)){
             ##TODO
@@ -71,14 +75,16 @@ v1$degs[v1$gs[v1$GPS[,2]]])")
         sp1<-GPSrepo$pathwaydescriptions
         summary_results<-data.frame(k1[,1],sp1[match(k1[,1],sp1[,1]),2],ps,Bonfer,k1[,2],
                                     kN[match(k1[,1],kN[,1]),2],sum(kN[,2]),sum(k1[,2]))
-        detailes_results<-hhd
-        colnames(summary_results)<-c("pathwy.id","description","pvalues","Bonferroni",
+        detailed_results<-hhd
+rownames(detailed_results)<-NULL        
+colnames(summary_results)<-c("pathwy.id","description","pvalues","Bonferroni",
                                      "successes","PathwaySize","N","sample.size")
         summary_results<- summary_results[with(summary_results, order(pvalues)),]
-        print(summary_results[which(summary_results$Bonfer<0.01),])
+rownames(summary_results)<-c(1:nrow(summary_results)) 
+       print(summary_results[which(summary_results$Bonfer<0.01),])
         res<-list()
         res[["summary_results"]]<-summary_results
-        res[["detailes_results"]]<-detailes_results
+        res[["detailed_results"]]<-detailed_results
         if(!is.null(saveFile)){
             Genes<-vector(mode='character',length=nrow(summary_results))
             for(i in 1:nrow(summary_results)){

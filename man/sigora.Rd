@@ -26,7 +26,7 @@ In hierarchical repositories (e.g. Reactome) number of levels to consider. Recom
   \item{markers}{
   Whether to take single genes that are uniquely associated with only one pathway into account
   (i.e. should pathway unique genes/PUGs be considered GPS?). Recommended value: TRUE (1).
-we}
+}
   \item{queryList}{
   A user specified list of genes of interest ('query list'), as a vector of ENSEMBL (recommended)/ENTREZ IDs or gene symbols (HGNC/MGI).
 }
@@ -63,18 +63,17 @@ Foroushani AB, Brinkman FS and Lynn DJ (2013).\dQuote{Pathway-GPS and SIGORA: id
 \code{\link{sigora-package}} , \code{\link{makeGPS}}
 }
 \examples{
+\dontrun{
 ##query list
 ils<-grep("^IL",idmap[["Symbol"]],value=TRUE)
 ## using precompiled GPS repository:
-sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=4)
-\dontrun{
+sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=3)
 ## user created GPS repository:
 nciH<-makeGPS(pathwayTable=nciTable)
-sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
+sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)
 ## user defined weighting schemes :
 myfunc<-function(a,b){1/log(a+b)}
-sigora(queryList=ils,GPSrepo=nciH,level=3, weighting.method ="myfunc")
+sigora(queryList=ils,GPSrepo=nciH,level=2, weighting.method ="myfunc")
 }
 }
 \keyword{functions}
-

@@ -1,6 +1,6 @@
 getGenes<-function(yy,i){
 idmap<-get(data(idmap,envir=as.environment(parent.frame())))
-yy1<-yy$detailes_results[which(yy$detailes_results[,'pathway']==yy$summary_results[i,1]),,drop=FALSE]
+yy1<-yy$detailed_results[which(yy$detailed_results[,'pathway']==yy$summary_results[i,1]),,drop=FALSE]
 ## pgs<-unique(as.character(as.vector(yy1[yy1[,4]==1,1:2])))
 ## print(pgs)
 r1<-aggregate(as.numeric(yy1[,4]),by=list(yy1[,1]),FUN=sum)

@@ -16,8 +16,9 @@ ora<-function(geneList,GPSrepo){
     ps<-phyper(npwys-1,PPwys[match(names(npwys),names(PPwys))],
                length(GPSrepo$origRepo[[2]])-PPwys[match(names(npwys),names(PPwys))],length(intersect(geneList,GPSrepo$origRepo[[2]])),lower.tail=F)
     ps<-signif(ps,digits = 4)
-    res<-data.frame(nn,PPwys[match(names(npwys),names(PPwys))],as.numeric(ps),as.numeric(p.adjust(ps,method='bonfer')))
+    res<-data.frame(nn,PPwys[match(names(npwys),names(PPwys))],as.numeric(ps),as.numeric(p.adjust(ps,method='bonfer')))[,-4]
     colnames(res)<-c("pathwyid","description","success","pathwaySize","pvalues","Bonfer")
     res<- res[with(res, order(pvalues)),]
-   return(res[which(as.numeric(res[,ncol(res)])<0.05),])
+rownames(res)<-c(1:nrow(res))   
+return(res[which(as.numeric(res[,ncol(res)])<0.05),])
 }

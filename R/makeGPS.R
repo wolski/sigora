@@ -13,6 +13,7 @@ makeGPS<-function(pathwayTable=NULL,fn=NULL,maxLevels=5,saveFile=NULL,
     fG<-read.table(fn,header=T,sep='\t',quote='@')}else{fG<-pathwayTable}
     ##,fileEncoding     = "utf8")
     colnames(fG)<-c('pwys','nms','gns')
+    fG<-unique(fG)
     valGenes<-names(table(fG$gns))[which(table(fG$gns)<(1+maxFunperGene)) ]
     valPathways<-names(table(fG$pwys))[which(table(fG$pwys)<(1+maxGenesperPathway)&
                                              table(fG$pwys)>(minGenesperPathway-1))]
@@ -51,8 +52,15 @@ makeGPS<-function(pathwayTable=NULL,fn=NULL,maxLevels=5,saveFile=NULL,
         colnames(M)<-gs
         ##rm(s)
         PU<-which(diag(M)==1)
-        PUG<-cbind(si[PU],sj[PU])
-
+        #PUG<-cbind(si[PU],sj[PU])
+	m<-as.matrix(s)
+	#rownames(m)<-gs
+	#colnames(m)<-ps
+	#browser()
+xx<-which(m[PU,,drop=FALSE]==1,arr.ind = T)[,2]
+PUG<-cbind(PU,xx[names(PU)])
+#	PUG <-
+# cbind(PU,which(m[PU,,drop=FALSE]==1,arr.ind = T)[,2] ) 
         GP<-which(M==1,arr.ind=T)
         GP<-GP[GP[,1]<GP[,2],]
         S<-vector(length=nrow(GP))
@@ -61,7 +69,7 @@ makeGPS<-function(pathwayTable=NULL,fn=NULL,maxLevels=5,saveFile=NULL,
         S<-ifelse(is.na(S1),S2,S1)
         rm(M)
         gc(T)
-        m<-as.matrix(s)
+    #    m<-as.matrix(s)
         for(h1 in which(is.na(S))){S[h1]<-which(m[GP[h1,1],]+m[GP[h1,2],]==2)}
         GPS<-cbind(GP,S)
         print(Sys.time()-t1)

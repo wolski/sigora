@@ -2,7 +2,7 @@
 \alias{sigora-package}
 \docType{package}
 \title{
-SIGNATURE OVERREPRESENTATION ANALYSIS
+Signature Overrepresentation Analysis
 }
 \description{
 This package implements the pathway analysis method SIGORA. For an in
@@ -22,7 +22,7 @@ over-representation analysis of their (present) GPS.
 To install from CRAN:\cr
 \code{install.packages('sigora')}\cr
 As an alternative, you can download the tarball and install from the local file: \cr
-\code{install.packages("sigora_2.0.1.tar.gz",type="source",repos = NULL)} \cr
+\code{install.packages("sigora_3.0.tar.gz",type="source",repos = NULL)} \cr
 To load the library:\cr
 \code{library("sigora")}
 }
@@ -45,7 +45,7 @@ Analysis (which is the basis for many popular tools) is available through
 ## what are the genes
 \code{a1[["genes"]]}\cr
 ## Traditional ora identifies dozens of statistically significant pathways!\cr
-\code{ora(a1[["genes"]],kegH))}\cr
+\code{ora(a1[["genes"]],kegH)}\cr
 ## Now let us try sigora with the same input:\cr
 \code{sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],level = 4)}\cr
  ## Again, the three originally selected pathways were:\cr
