@@ -1,5 +1,5 @@
-getGenes<-function(yy,i){
-idmap<-get(data(idmap,envir=as.environment(parent.frame())))
+getGenes<-function(yy,i,idmap=sigora::idmap){
+#idmap<-get(data(idmap,envir=as.environment(parent.frame())))
 yy1<-yy$detailed_results[which(yy$detailed_results[,'pathway']==yy$summary_results[i,1]),,drop=FALSE]
 ## pgs<-unique(as.character(as.vector(yy1[yy1[,4]==1,1:2])))
 ## print(pgs)
@@ -13,6 +13,7 @@ v1<-(sapply(idmap,function(x)length(intersect(x,r4[,1]))))
 if(max(v1)>0){
 t1<-which.max(v1)
 r4<-cbind(r4,idmap[match(r4[,1],idmap[,t1]),-t1])
-}        
+}
+rownames(r4)<-NULL        
 r4
 }

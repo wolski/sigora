@@ -13,10 +13,10 @@ This function determines which Signatures (GPS) from a collection of GPS data
 }
 \usage{
 sigora(GPSrepo, level, markers = FALSE,
- queryList = NULL, saveFile=NULL, weighting.method = "invhm")
+ queryList = NULL, saveFile=NULL, weighting.method = "invhm", idmap=sigora::idmap)
 }
 \arguments{
-  \item{GPSrepo}{ An object created by \code{makeGPS} or one of the precompiled GPS data collections that are provided with this package (currently for KEGG and Reactome). e.g. reaH for human Reactome GPS.
+  \item{GPSrepo}{ An object created by \code{makeGPS} or one of the precompiled GPS data collections that are provided with this package (currently for KEGG and Reactome). e.g. \code{reaH} for human Reactome GPS, \code{kegH} for human KEGG GPS, and \code{reaM} and \code{kegM} for corresponding mouse GPS.
    See the examples section for creating and using your own GPS.
 
 }
@@ -28,7 +28,7 @@ In hierarchical repositories (e.g. Reactome) number of levels to consider. Recom
   (i.e. should pathway unique genes/PUGs be considered GPS?). Recommended value: TRUE (1).
 }
   \item{queryList}{
-  A user specified list of genes of interest ('query list'), as a vector of ENSEMBL (recommended)/ENTREZ IDs or gene symbols (HGNC/MGI).
+  A user specified list of genes of interest ('query list'), as a vector of ENSEMBL/ ENTREZ IDs or gene symbols (HGNC/MGI).
 }
  \item{saveFile}{
 If provided, the results are saved here as a tab delimited File
@@ -51,6 +51,9 @@ Additional user defined weighting schemes are also supported (see section exampl
 'justPUGs': Analysis is performed using PUGs only.\cr
 'invhm': all GPS are weighted by the reciproc of the harmonic mean of the degrees of their consituent genes (default).\cr
 }
+  \item{idmap}{
+A dataframe for converting between different gene-identifier types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not need to set this argument, as there is a built-in conversion table.
+}
 }
 \value{
 \item{ summary_results}{A dataframe listing the analysis results.}
@@ -66,8 +69,9 @@ Foroushani AB, Brinkman FS and Lynn DJ (2013).\dQuote{Pathway-GPS and SIGORA: id
 \dontrun{
 ##query list
 ils<-grep("^IL",idmap[["Symbol"]],value=TRUE)
-## using precompiled GPS repository:
-sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=3)
+## using precompiled GPS repositories:
+sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=4) 
+sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=kegH,level=2)
 ## user created GPS repository:
 nciH<-makeGPS(pathwayTable=nciTable)
 sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)

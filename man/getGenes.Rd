@@ -8,7 +8,7 @@ List genes involved in present GPS for a specific pathway in the summary_results
 This function lists the genes involved in the present GPS for a pathway of interest, odered by their contribution to the significance of the pathway.
 }
 \usage{
-getGenes(yy, i)
+getGenes(yy, i, idmap=sigora::idmap)
 }
 \arguments{
   \item{yy}{
@@ -16,6 +16,9 @@ A sigora analysis result object (created by \code{sigora}).
 }
   \item{i}{
 The rank position of the pathway of interest in summary_results.
+}
+  \item{idmap}{
+A dataframe for converting between different gene-identifier types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not need to set this argument, as there is a built-in conversion table.
 }
 }
 \value{

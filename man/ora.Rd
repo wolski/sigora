@@ -11,7 +11,7 @@ as equally informative. This function is provided for comparison of the
 results of traditional methods to Sigora.  
 }
 \usage{
-ora(geneList, GPSrepo)
+ora(geneList, GPSrepo, idmap=sigora::idmap)
 }
 \arguments{
   \item{geneList}{
@@ -21,6 +21,9 @@ expressed genes). Following Identifier types are supported: Gene Symbols, ENTREZ
   \item{GPSrepo}{
 A GPS-repository (either one of the provided precomputed GPS
 repositories) or one created by \code{makeGPS}.
+}
+  \item{idmap}{
+A dataframe for converting between different gene-identifier types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not need to set this argument, as there is a built-in conversion table.
 }
 }
 \details{

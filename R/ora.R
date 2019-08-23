@@ -1,5 +1,5 @@
-ora<-function(geneList,GPSrepo){
-    idmap<-get(data(idmap,envir=as.environment(parent.frame())))
+ora<-function(geneList,GPSrepo,idmap=sigora::idmap){
+   # idmap<-get(data(idmap,envir=as.environment(parent.frame())))
     fr<-GPSrepo$origRepo[[3]]
        sp1<-GPSrepo$pathwaydescriptions
           if(length(intersect(geneList,GPSrepo$origRepo[[2]]))==0){

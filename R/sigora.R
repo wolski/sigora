@@ -1,10 +1,10 @@
 sigora <-
-    function(GPSrepo,level,markers=FALSE,queryList=NULL,saveFile=NULL,weighting.method="invhm"){
+    function(GPSrepo,level,markers=FALSE,queryList=NULL,saveFile=NULL,weighting.method="invhm", idmap=sigora::idmap){
         ##` GPSrepo:Output of makeGPS
-        ##` fn:not used
         ##` queryList: query list
         ##`
-        idmap<-get(data(idmap,envir=as.environment(parent.frame())))
+        #idmap<-sigora::idmap
+#get(data(idmap,envir=as.environment(parent.frame())))
         invhm <- function(a, b) {
             0.5 * ((1/a) + (1/b))
         }
