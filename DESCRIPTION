@@ -25,7 +25,7 @@ Description:
     and contains pre-computed Pathway-GPS data for pathways in the KEGG and 
     Reactome pathway repositories as well as mechanisms for extracting GPS for 
     user supplied repositories.
-License: GPL-2
+License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
 NeedsCompilation: no
