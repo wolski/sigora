@@ -10,6 +10,7 @@
 #' @docType data
 #' @source www.ensembl.org/biomart/martview
 #' @keywords datasets
+#' @export
 #' @examples
 #'
 #' data(idmap)
@@ -36,6 +37,7 @@ NULL
 #' molecular data sets.} \emph{Nucleic Acids Research} \bold{40}(D1).
 #' @source <http://www.genome.jp/kegg/pathway.html>
 #' @keywords datasets
+#' @export
 #' @examples
 #'
 #' data(kegH)
@@ -61,6 +63,7 @@ NULL
 #' molecular data sets.} \emph{Nucleic Acids Research} \bold{40}(D1).
 #' @source <http://www.genome.jp/kegg/pathway.html>
 #' @keywords datasets
+#' @export
 #' @examples
 #'
 #' data(kegM)
@@ -92,6 +95,7 @@ NULL
 #' @source
 #' <https://github.com/NCIP/pathway-interaction-database/tree/master/download>
 #' @keywords datasets
+#' @export
 #' @examples
 #'
 #' data(nciTable)
@@ -120,6 +124,7 @@ NULL
 #' processes.} \emph{Nucleic acids research} \bold{37}(Database issue).
 #' @source <http://www.reactome.org/>
 #' @keywords datasets
+#' @export
 #' @examples
 #'
 #' data(reaH)
@@ -146,6 +151,7 @@ NULL
 #' processes.} \emph{Nucleic acids research} \bold{37}(Database issue).
 #' @source <http://www.reactome.org/>
 #' @keywords datasets
+#' @export
 #' @examples
 #'
 #' data(reaM)
@@ -245,7 +251,7 @@ NULL
 #' \emph{ENSEMBL}-IDs and perform \emph{Signature Overrepresentation Analysis}
 #' using this repository on a list of \emph{ENTREZ}-IDs.  }
 #'
-#' @name sigora-package
+#' @name sigora_package
 #' @docType package
 #' @author Amir B.K. Foroushani, Fiona S.L. Brinkman, David J. Lynn
 #'
@@ -256,6 +262,7 @@ NULL
 #' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
 #' \bold{1}
 #' @keywords package
+#' @export
 #' @examples
 #'
 #' data('kegH')

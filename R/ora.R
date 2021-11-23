@@ -21,7 +21,7 @@
 #' types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not
 #' need to set this argument, as there is a built-in conversion table.
 #' @return A dataframe with individual gene ORA results.
-#' @seealso \code{\link{sigora-package}}
+#' @seealso \code{\link[sigora]{sigora_package}}
 #' @keywords functions
 #' @examples
 #'

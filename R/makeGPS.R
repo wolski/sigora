@@ -43,7 +43,7 @@ require(slam)
 #' from CRAN.  It is fairly memory intensive, and it is recommended to be run
 #' on a machine with at least 6GB of RAM. Also, make sure to save and reuse the
 #' resulting GPS repository in future analyses!
-#' @seealso \code{\link{sigora}}, \code{\link{sigora-package}}
+#' @seealso \code{\link{sigora}}, \code{\link[sigora]{sigora_package}}
 #' @references Foroushani AB, Brinkman FS and Lynn DJ
 #' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
 #' on the over-representation of their gene-pair signatures.}\emph{PeerJ},

@@ -95,6 +95,6 @@ on the over-representation of their gene-pair signatures.}\emph{PeerJ},
 \bold{1}
 }
 \seealso{
-\code{\link{sigora-package}} , \code{\link{makeGPS}}
+\code{\link{sigora_package}} , \code{\link{makeGPS}}
 }
 \keyword{functions}

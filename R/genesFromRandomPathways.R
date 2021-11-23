@@ -14,7 +14,7 @@
 #' @return \item{selectedPathways}{A vector containing the "np" originally
 #' selected pathways.} \item{genes}{ A vector containing the "ng" selected
 #' genes from selectedPathways.}
-#' @seealso \code{\link{sigora-package}}
+#' @seealso \code{\link[sigora]{sigora_package}}
 #' @references Foroushani AB, Brinkman FS and Lynn DJ
 #' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
 #' on the over-representation of their gene-pair signatures.}\emph{PeerJ},

@@ -48,7 +48,7 @@
 #' @return \item{ summary_results}{A dataframe listing the analysis results.}
 #' \item{detailed_results }{A dataframe describing the detailed evidence
 #' (present Gene-Pair Signatures) for each pathway.}
-#' @seealso \code{\link{sigora-package}} , \code{\link{makeGPS}}
+#' @seealso \code{\link{sigora_package}} , \code{\link{makeGPS}}
 #' @references Foroushani AB, Brinkman FS and Lynn DJ
 #' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
 #' on the over-representation of their gene-pair signatures.}\emph{PeerJ},

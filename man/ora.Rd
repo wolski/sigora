@@ -48,6 +48,6 @@ oraRes
 
 }
 \seealso{
-\code{\link{sigora-package}}
+\code{\link[sigora]{sigora_package}}
 }
 \keyword{functions}
