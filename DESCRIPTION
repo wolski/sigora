@@ -5,9 +5,8 @@ Version: 3.0.5
 Date: 2019-8-23
 Author: Amir B.K. Foroushani, Fiona S.L. Brinkman, David J. Lynn
 Maintainer: Amir Foroushani <sigora.dev@gmail.com>
-Depends: R (>= 2.10)
-Imports: utils,stats
-Suggests: slam
+Depends: R (>= 4.10)
+Imports: utils,stats, slam
 Description: 
     Pathway Analysis is the process of statistically linking observations on 
     the molecular level to biological processes or pathways on the systems(i.e. 
@@ -26,9 +25,4 @@ Description:
     Reactome pathway repositories as well as mechanisms for extracting GPS for 
     user supplied repositories.
 License: GPL (>= 2)
-LazyLoad: yes
-LazyData: true
 NeedsCompilation: no
-Packaged: 2019-08-23 17:57:51 UTC; foroushaniak
-Repository: CRAN
-Date/Publication: 2019-08-23 18:20:02 UTC
