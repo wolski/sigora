@@ -29,6 +29,7 @@ the statistical significance of the pathway.
 \code{\link{sigora}}
 }
 \examples{
+data('kegH')
 a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
 ## originally selected pathways:\cr
 a1[["selectedPathways"]]

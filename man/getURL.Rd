@@ -25,6 +25,8 @@ The URL of the pathway diagram, where the relevant genes from your original quer
 \code{\link{sigora}}
 }
 \examples{
+data('kegH')
+
 a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
 ## originally selected pathways:\cr
 a1[["selectedPathways"]]

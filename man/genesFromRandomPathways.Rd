@@ -3,7 +3,7 @@
 
 \title{
 Function to randomly select genes associated with randomly
-pathways. 
+pathways.
 }
 \description{
 This function first randomly selects a number (np) of pathways, then
@@ -40,6 +40,7 @@ Foroushani AB, Brinkman FS and Lynn DJ (2013).\dQuote{Pathway-GPS and SIGORA: id
 \code{\link{sigora-package}}
 }
 \examples{
+data('kegH')
 ## select 50 genes from 3 human KEGG pathways
 a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
 ## originally selected pathways:
