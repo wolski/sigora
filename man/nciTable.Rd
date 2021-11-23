@@ -25,7 +25,7 @@ Overrepresentation Analysis on lists of genes of interest.
 \examples{
 
 data(nciTable)
-nciH<-makeGPS(pathwayTable=nciTable)
+nciH<-makeGPS(pathwayTable=load_data('nciTable'))
 data(idmap)
 ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
 ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)

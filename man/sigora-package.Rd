@@ -127,7 +127,7 @@ barplot(table(kegH$L1$degs),col="red",
 main="distribution of number of functions per gene in KEGG human pathways.",
 ylab="frequency",xlab="number of functions per gene")
 ## creating your own GPS repository
-nciH<-makeGPS(pathwayTable=nciTable)
+nciH<-makeGPS(pathwayTable=load_data('nciTable'))
 ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
 ## signature overrepresentation analysis:
 sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)

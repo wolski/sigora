@@ -63,7 +63,7 @@
 #' sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=4)
 #' sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=kegH,level=2)
 #' ## user created GPS repository:
-#' nciH<-makeGPS(pathwayTable=nciTable)
+#' nciH<-makeGPS(pathwayTable=load_data('nciTable'))
 #' sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)
 #' ## user defined weighting schemes :
 #' myfunc<-function(a,b){1/log(a+b)}
