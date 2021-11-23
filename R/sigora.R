@@ -56,19 +56,17 @@
 #' @keywords functions
 #' @examples
 #'
-#' \dontrun{
 #' ##query list
-#' ils<-grep("^IL",idmap[["Symbol"]],value=TRUE)
+#' ils<-grep("^IL",load_data('idmap')[["Symbol"]],value=TRUE)
 #' ## using precompiled GPS repositories:
-#' sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=4)
-#' sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=kegH,level=2)
+#' sigRes.ilreact<-sigora(queryList=ils,GPSrepo=load_data('reaH'),level=4)
+#' sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=load_data('kegH'),level=2)
 #' ## user created GPS repository:
 #' nciH<-makeGPS(pathwayTable=load_data('nciTable'))
-#' sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)
+#' sigRes.ilnci<-sigora(queryList=ils,GPSrepo=load_data('nciH'),level=2)
 #' ## user defined weighting schemes :
 #' myfunc<-function(a,b){1/log(a+b)}
-#' sigora(queryList=ils,GPSrepo=nciH,level=2, weighting.method ="myfunc")
-#' }
+#' sigora(queryList=ils,GPSrepo=load_data('nciH'),level=2, weighting.method ="myfunc")
 #'
 sigora <-
   function(GPSrepo,

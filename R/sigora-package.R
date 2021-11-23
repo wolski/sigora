@@ -109,7 +109,7 @@
 #' @keywords internal
 #' @examples
 #'
-#' data('kegH')
+#' data('kegH'); data('idmap')
 #' barplot(table(kegH$L1$degs),col="red",
 #' main="distribution of number of functions per gene in KEGG human pathways.",
 #' ylab="frequency",xlab="number of functions per gene")
