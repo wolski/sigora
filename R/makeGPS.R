@@ -1,4 +1,64 @@
 require(slam)
+
+
+#' Create your own Signature Object.
+#' 
+#' Given a repository of gene-pathway associations either in a tab delimited
+#' file with three columns (pathwayID,pathway Description,Gene) or a
+#' corresponding dataframe, this function identifies all Gene Pair Signatures
+#' (pairs of genes that are as a combination unique to a single pathway) and
+#' Pathway Unique Genes (genes that are uniquely associated with a single
+#' pathway) and stores them in a format that is usable by \code{sigora}.
+#' Please also see the "details" and "note" sections below.
+#' 
+#' The primary purpose of \code{makeGPS} is to convert a user-supplied
+#' gene-pathway association table to a repository of weighted Gene Pair
+#' Signatures (GPS) that are unique features of pathways. Such GPS can than be
+#' used for signature (gene-pair) based analyses using \code{sigora}.
+#' Additionally, the resulting object also retains the original "single
+#' gene"-"pathway" associations for the purpose of followup analyses, such as
+#' comparison of sigora-results to traditional methods. \code{ora} is an
+#' implementation of the traditional (individual gene) Overrepresentation
+#' Analysis.
+#' 
+#' @param pathwayTable A data frame describing gene-pathway associations in
+#' following format: pathwayID,pathwayName,Gene. Either pathwayTable or fn
+#' should be provided.
+#' @param fn Where to find the repository.Either pathwayTable or fn should be
+#' provided.
+#' @param maxLevels For hierarchical repositories, the number of levels to
+#' consider.
+#' @param saveFile Where to save the object as an rda file.
+#' @param repoName Repository name.
+#' @param maxFunperGene A cutoff threshold, genes with more than this number of
+#' associated pathways are excluded to speed up the GPS identification process.
+#' @param maxGenesperPathway A cutoff threshold, pathways with more than this
+#' number of associated genes are excluded to speed up the GPS identification
+#' process.
+#' @param minGenesperPathway A cutoff threshold, pathways with less than this
+#' number of associated genes are excluded to speed up the GPS identification
+#' process.
+#' @return A GPS repository, to be used by \code{sigora} and \code{ora.}
+#' @note This function relies on package \code{slam}, which should be installed
+#' from CRAN.  It is fairly memory intensive, and it is recommended to be run
+#' on a machine with at least 6GB of RAM. Also, make sure to save and reuse the
+#' resulting GPS repository in future analyses!
+#' @seealso \code{\link{sigora}}, \code{\link{sigora-package}}
+#' @references Foroushani AB, Brinkman FS and Lynn DJ
+#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
+#' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
+#' \bold{1}
+#' @keywords functions
+#' @examples
+#' 
+#' data(nciTable)
+#' ## what the input looks like:
+#' head(nciTable)
+#' ## create a SigObject. use the saveFile parameter for reuse.  
+#' nciH<-makeGPS(pathwayTable=nciTable)
+#' ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
+#' ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
+#' 
 makeGPS <-
   function(pathwayTable = NULL,
            fn = NULL,

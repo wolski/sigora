@@ -1,3 +1,42 @@
+#' Function to randomly select genes associated with randomly pathways.
+#' 
+#' This function first randomly selects a number (np) of pathways, then
+#' randomly selects a number (ng) of genes that are associated with at least
+#' one of the selected pathways.  The function can be used to compare Sigora's
+#' performance to traditional overrepresentation tests.
+#' 
+#' 
+#' @param seed A random seed.
+#' @param GPSrepo A signature repository (created by ..) or one of the
+#' precompiled options.
+#' @param np How many pathways to select.
+#' @param ng Number of genes to be selected.
+#' @return \item{selectedPathways}{A vector containing the "np" originally
+#' selected pathways.} \item{genes}{ A vector containing the "ng" selected
+#' genes from selectedPathways.}
+#' @seealso \code{\link{sigora-package}}
+#' @references Foroushani AB, Brinkman FS and Lynn DJ
+#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
+#' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
+#' \bold{1}
+#' @keywords functions
+#' @examples
+#' 
+#' data('kegH')
+#' ## select 50 genes from 3 human KEGG pathways
+#' a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
+#' ## originally selected pathways:
+#' a1[["selectedPathways"]]
+#' ## what are the genes
+#' a1[["genes"]]
+#' ## sigora's results
+#' sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],
+#'         level = 4)
+#' ## compare to traditional methods results:
+#' oraRes <- ora(a1[["genes"]],kegH)
+#' dim(oraRes)
+#' oraRes
+#' 
 genesFromRandomPathways<-function(seed=1234,GPSrepo,np,ng){
 set.seed(seed)
     fr<-GPSrepo$origRepo[[3]]
