@@ -77,7 +77,7 @@ makeGPS <-
     ##` minGenesperPathway: a cutoff threshold, pathways with less than this number of associated genes  are excluded to speed up the GPS identification process.
     if (is.null(pathwayTable)) {
       fG <-
-        read.table(fn,
+        utils::read.table(fn,
                    header = TRUE,
                    sep = '\t',
                    quote = '@')

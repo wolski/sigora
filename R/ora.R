@@ -63,7 +63,7 @@ ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
   nn <-
     cbind(sp1[match(names(npwys), sp1[, 1]), ], as.numeric(as.vector(npwys)))
   PPwys <- table(as.character(GPSrepo$origRepo[[1]][(fr[, 1])]))
-  ps <- phyper(
+  ps <- stats::phyper(
     npwys - 1,
     PPwys[match(names(npwys), names(PPwys))],
     length(GPSrepo$origRepo[[2]]) - PPwys[match(names(npwys), names(PPwys))],
@@ -72,7 +72,7 @@ ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
   )
   ps <- signif(ps, digits = 4)
   res <-
-    data.frame(nn, PPwys[match(names(npwys), names(PPwys))], as.numeric(ps), as.numeric(p.adjust(ps, method =
+    data.frame(nn, PPwys[match(names(npwys), names(PPwys))], as.numeric(ps), as.numeric(stats::p.adjust(ps, method =
                                                                                                    'bonfer')))[, -4]
   colnames(res) <-
     c("pathwyid",

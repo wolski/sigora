@@ -160,17 +160,17 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
     hhd <-
       (hh[hh[, 1] %in% queryList & hh[, 2] %in% queryList, , drop = FALSE])
     k1 <-
-      (aggregate(as.numeric(hhd[, 4]), by = list(hhd[, 3]), FUN = sum))
-    kN <- (aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN =
+      (stats::aggregate(as.numeric(hhd[, 4]), by = list(hhd[, 3]), FUN = sum))
+    kN <- (stats::aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN =
                        sum))
     sum(kN[, 2])
     sum(k1[, 2])
-    ps <- phyper(k1[, 2] - 1, kN[match(k1[, 1], kN[, 1]), 2],
+    ps <- stats::phyper(k1[, 2] - 1, kN[match(k1[, 1], kN[, 1]), 2],
                  sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2], sum(k1[, 2]), lower.tail =
                    F)
     ps <- signif(ps, digits = 4)
     Bonfer <-
-      signif(p.adjust(ps, n = length(unique(hh[, 3])), method = 'bonfer'), digits = 4)
+      signif(stats::p.adjust(ps, n = length(unique(hh[, 3])), method = 'bonfer'), digits = 4)
     sp1 <- GPSrepo$pathwaydescriptions
     summary_results <-
       data.frame(k1[, 1], sp1[match(k1[, 1], sp1[, 1]), 2], ps, Bonfer, k1[, 2],
@@ -205,7 +205,7 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
           Genes[i] <- paste(v11[, 1], sep = "", collapse = ";")
         }
       }
-      write.table(
+      stats::write.table(
         cbind(summary_results, Genes),
         file = saveFile,
         quote = F,
