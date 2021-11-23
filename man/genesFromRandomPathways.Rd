@@ -52,6 +52,6 @@ on the over-representation of their gene-pair signatures.}\emph{PeerJ},
 \bold{1}
 }
 \seealso{
-\code{\link[sigora]{sigora_package}}
+\code{\link{sigora-package}}
 }
 \keyword{functions}
