@@ -1,11 +1,11 @@
 #' Function to randomly select genes associated with randomly pathways.
-#' 
+#'
 #' This function first randomly selects a number (np) of pathways, then
 #' randomly selects a number (ng) of genes that are associated with at least
 #' one of the selected pathways.  The function can be used to compare Sigora's
 #' performance to traditional overrepresentation tests.
-#' 
-#' 
+#'
+#' @export
 #' @param seed A random seed.
 #' @param GPSrepo A signature repository (created by ..) or one of the
 #' precompiled options.
@@ -21,7 +21,7 @@
 #' \bold{1}
 #' @keywords functions
 #' @examples
-#' 
+#'
 #' data('kegH')
 #' ## select 50 genes from 3 human KEGG pathways
 #' a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
@@ -36,7 +36,7 @@
 #' oraRes <- ora(a1[["genes"]],kegH)
 #' dim(oraRes)
 #' oraRes
-#' 
+#'
 genesFromRandomPathways<-function(seed=1234,GPSrepo,np,ng){
 set.seed(seed)
     fr<-GPSrepo$origRepo[[3]]
@@ -45,7 +45,7 @@ cat("### randomly selected pathways are: \n")
     cat(paste(as.character(GPSrepo$origRepo[[1]])[p1],"\n"))
 g1<-sample(unique(fr[fr[,1]%in%p1,2]),ng)
 queryList<-as.character(GPSrepo$origRepo[[2]])[g1]
-## cat("### Sigora returns: \n")   
+## cat("### Sigora returns: \n")
 ## sigoraRes<-sigora(GPSrepo=GPSrepo,queryList=as.character(queryList),level=4)
 ## cat("### traditional Overrepresntation Analysis would return: \n")
 ##oraRes<-ora(queryList,GPSrepo)

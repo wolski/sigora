@@ -2,7 +2,7 @@ require(slam)
 
 
 #' Create your own Signature Object.
-#' 
+#'
 #' Given a repository of gene-pathway associations either in a tab delimited
 #' file with three columns (pathwayID,pathway Description,Gene) or a
 #' corresponding dataframe, this function identifies all Gene Pair Signatures
@@ -10,7 +10,7 @@ require(slam)
 #' Pathway Unique Genes (genes that are uniquely associated with a single
 #' pathway) and stores them in a format that is usable by \code{sigora}.
 #' Please also see the "details" and "note" sections below.
-#' 
+#'
 #' The primary purpose of \code{makeGPS} is to convert a user-supplied
 #' gene-pathway association table to a repository of weighted Gene Pair
 #' Signatures (GPS) that are unique features of pathways. Such GPS can than be
@@ -20,7 +20,7 @@ require(slam)
 #' comparison of sigora-results to traditional methods. \code{ora} is an
 #' implementation of the traditional (individual gene) Overrepresentation
 #' Analysis.
-#' 
+#' @export
 #' @param pathwayTable A data frame describing gene-pathway associations in
 #' following format: pathwayID,pathwayName,Gene. Either pathwayTable or fn
 #' should be provided.
@@ -50,15 +50,15 @@ require(slam)
 #' \bold{1}
 #' @keywords functions
 #' @examples
-#' 
-#' data(nciTable)
+#'
+#' data(nciTable); data(idmap)
 #' ## what the input looks like:
 #' head(nciTable)
-#' ## create a SigObject. use the saveFile parameter for reuse.  
+#' ## create a SigObject. use the saveFile parameter for reuse.
 #' nciH<-makeGPS(pathwayTable=nciTable)
 #' ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
 #' ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
-#' 
+#'
 makeGPS <-
   function(pathwayTable = NULL,
            fn = NULL,

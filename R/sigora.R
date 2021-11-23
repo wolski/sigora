@@ -1,5 +1,5 @@
 #' Sigora's main function.
-#' 
+#'
 #' This function determines which Signatures (GPS) from a collection of GPS
 #' data (\code{GPSrepo} argument) for the specified pathway repository are
 #' present in the specified list of genes of interest (\code{queryList}
@@ -7,8 +7,9 @@
 #' probabilities to identify the pathways whose GPS are over-represented among
 #' the present GPS and saves the results to the file specified in the
 #' \code{saveFile} argument.
-#' 
-#' 
+#'
+#' @export
+#'
 #' @param GPSrepo An object created by \code{makeGPS} or one of the precompiled
 #' GPS data collections that are provided with this package (currently for KEGG
 #' and Reactome). e.g. \code{reaH} for human Reactome GPS, \code{kegH} for
@@ -54,12 +55,12 @@
 #' \bold{1}
 #' @keywords functions
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' ##query list
 #' ils<-grep("^IL",idmap[["Symbol"]],value=TRUE)
 #' ## using precompiled GPS repositories:
-#' sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=4) 
+#' sigRes.ilreact<-sigora(queryList=ils,GPSrepo=reaH,level=4)
 #' sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=kegH,level=2)
 #' ## user created GPS repository:
 #' nciH<-makeGPS(pathwayTable=nciTable)
@@ -68,7 +69,7 @@
 #' myfunc<-function(a,b){1/log(a+b)}
 #' sigora(queryList=ils,GPSrepo=nciH,level=2, weighting.method ="myfunc")
 #' }
-#' 
+#'
 sigora <-
   function(GPSrepo,
            level,
@@ -76,11 +77,10 @@ sigora <-
            queryList = NULL,
            saveFile = NULL,
            weighting.method = "invhm",
-           idmap = sigora::idmap) {
+           idmap = load_data('idmap')) {
     ##` GPSrepo:Output of makeGPS
     ##` queryList: query list
     ##`
-    #idmap<-sigora::idmap
     #get(data(idmap,envir=as.environment(parent.frame())))
     invhm <- function(a, b) {
       0.5 * ((1 / a) + (1 / b))

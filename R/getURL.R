@@ -1,10 +1,10 @@
 #' Highlight the relevant genes for a specific pathway in its pathway diagram
-#' 
+#'
 #' This function highlights the genes involved in the present GPS for a pathway
 #' of interest in its diagram. Please note that this functionality is only
 #' implemented for results of Reactome or KEGG based analyses.
-#' 
-#' 
+#'
+#' @export
 #' @param yy A sigora analysis result object (created by \code{sigora}).
 #' @param i The rank position of the pathway of interest in summary_results.
 #' @return The URL of the pathway diagram, where the relevant genes from your
@@ -12,9 +12,9 @@
 #' @seealso \code{\link{sigora}}
 #' @keywords functions
 #' @examples
-#' 
+#'
 #' data('kegH')
-#' 
+#'
 #' a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
 #' ## originally selected pathways:\cr
 #' a1[["selectedPathways"]]
@@ -24,7 +24,7 @@
 #' sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],level = 2)
 #' ## Diagram for the most significant result, where the genes from our list are highlighted in red:
 #' getURL(sigoraRes,1)
-#' 
+#'
 getURL<-function(yy,i){
 url<-''
 repo<-ifelse(substr(x=yy$summary_results[i,1],start=1,2)=='R-','rea','keg')
