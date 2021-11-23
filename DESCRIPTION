@@ -15,14 +15,12 @@ Authors@R: c(
         person("David", "Lynn",
         email = c("sigora.dev@gmail.com"),
         role = c("aut")),
-        
         person("Witold", "Wolski",
         email = c("wew@fgcz.ethz.ch"),
         role = c("cre"),
-        comment = c(ORCID = "0000-0002-6468-120X")),
-        
+        comment = c(ORCID = "0000-0002-6468-120X"))
         )
-Depends: R (>= 4.10)
+Depends: R (>= 4.1.0)
 Imports: utils,stats, slam
 Description: 
     Pathway Analysis is the process of statistically linking observations on 
