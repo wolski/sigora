@@ -1,3 +1,4 @@
+#' @details
 #' Signature Overrepresentation Analysis
 #'
 #' This package implements the pathway analysis method SIGORA. For an in depth
@@ -105,7 +106,7 @@
 #' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
 #' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
 #' \bold{1}
-#' @keywords package
+#' @keywords internal
 #' @examples
 #'
 #' data('kegH')
