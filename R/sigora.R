@@ -205,7 +205,7 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
           Genes[i] <- paste(v11[, 1], sep = "", collapse = ";")
         }
       }
-      stats::write.table(
+      utils::write.table(
         cbind(summary_results, Genes),
         file = saveFile,
         quote = F,
