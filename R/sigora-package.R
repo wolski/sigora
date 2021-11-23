@@ -96,7 +96,6 @@
 #' \emph{ENSEMBL}-IDs and perform \emph{Signature Overrepresentation Analysis}
 #' using this repository on a list of \emph{ENTREZ}-IDs.
 #'
-#' @name sigora_package
 #' @docType package
 #' @author Amir B.K. Foroushani, Fiona S.L. Brinkman, David J. Lynn
 #'

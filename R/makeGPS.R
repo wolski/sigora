@@ -55,7 +55,7 @@ require(slam)
 #' ## what the input looks like:
 #' head(nciTable)
 #' ## create a SigObject. use the saveFile parameter for reuse.
-#' nciH<-makeGPS(pathwayTable=nciTable)
+#' nciH<-makeGPS(pathwayTable=load_data('nciTable'))
 #' ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
 #' ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
 #'
