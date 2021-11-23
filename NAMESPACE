@@ -3,6 +3,7 @@
 export(genesFromRandomPathways)
 export(getGenes)
 export(getURL)
+export(load_data)
 export(makeGPS)
 export(ora)
 export(sigora)
