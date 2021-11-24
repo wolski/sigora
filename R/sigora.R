@@ -105,11 +105,11 @@ sigora <-
     ##` GPSrepo:Output of makeGPS
     ##` queryList: query list
     ##`
-    if ("character" %in% is(weighting.method)) {
+    if ("character" %in% class(weighting.method)) {
       WEIGHTMETHODS <- names(.getWeightfunc())
       weighting.method <- pmatch(weighting.method, WEIGHTMETHODS)
       weightfunc <- .getWeightfunc()[[weighting.method]]
-    } else if ("function" %in% is(weighting.method)) {
+    } else if ("function" %in% class(weighting.method)) {
       weightfunc <- weighting.method
     } else {
       stop("invalid parameter weighting.method")
