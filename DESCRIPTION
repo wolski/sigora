@@ -22,7 +22,10 @@ Authors@R: c(
         comment = c(ORCID = "0000-0002-6468-120X"))
         )
 Depends: R (>= 4.1.0)
-Imports: utils,stats, slam
+Imports:
+  knitr,
+  stats,
+  slam
 Description: 
      Pathway Analysis is statistically linking observations on 
      the molecular level to biological processes or pathways on 
