@@ -121,13 +121,13 @@ sigora <-
     ## mapping
     if (length(intersect(queryList, GPSrepo$origRepo[[2]])) == 0) {
       t1 <-
-        which.max(sapply(idmap, function(x)
+        which.max(vapply(idmap, function(x){
           length(intersect(
             x, GPSrepo$origRepo[[2]]
-          ))))
+          ))}, FUN.VALUE = integer(1)))
       t2 <-
-        which.max(sapply(idmap, function(x)
-          length(intersect(x, queryList))))
+        which.max(vapply(idmap, function(x){
+          length(intersect(x, queryList))}, FUN.VALUE = integer(1) ))
       queryList <- idmap[which(idmap[, t2] %in% queryList), t1]
       print(paste(
         "Mapped identifiers from" ,

@@ -42,8 +42,8 @@ getGenes <- function(yy, i, idmap = load_data('idmap')) {
   r4 <- as.data.frame(r3[order(-r3[, 2]), ])
   r4[, 2] <- 0.5 * r4[, 2]
   colnames(r4) <- c("gene", "contribution")
-  v1 <- (sapply(idmap, function(x)
-    length(intersect(x, r4[, 1]))))
+  v1 <- vapply(idmap, function(x){
+    length(intersect(x, r4[, 1]))},FUN.VALUE = integer(1))
   if (max(v1) > 0) {
     t1 <- which.max(v1)
     r4 <- cbind(r4, idmap[match(r4[, 1], idmap[, t1]), -t1])

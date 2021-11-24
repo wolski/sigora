@@ -42,13 +42,13 @@ ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
   sp1 <- GPSrepo$pathwaydescriptions
   if (length(intersect(geneList, GPSrepo$origRepo[[2]])) == 0) {
     t1 <-
-      which.max(sapply(idmap, function(x)
+      which.max(vapply(idmap, function(x){
         length(intersect(
           x, GPSrepo$origRepo[[2]]
-        ))))
+        ))}, FUN.VALUE = integer(1)))
     t2 <-
-      which.max(sapply(idmap, function(x)
-        length(intersect(x, geneList))))
+      which.max(vapply(idmap, function(x){
+        length(intersect(x, geneList))},FUN.VALUE = integer(1) ))
     geneList <- idmap[which(idmap[, t2] %in% geneList), t1]
     print(paste(
       "Mapped identifiers from" ,

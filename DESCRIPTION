@@ -48,7 +48,7 @@ Description:
      for user-supplied repositories.
 License: GPL-3 + file LICENSE
 NeedsCompilation: no
-biocViews: GeneSetEnrichment, GO, Software
+biocViews: GeneSetEnrichment, GO, Software, Pathways, KEGG
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 
