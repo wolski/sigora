@@ -1,0 +1,166 @@
+---
+title: "Signature Overrepresentation Analysis - Sigora"
+author: "Witold Wolski"
+date: "24/11/2021"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Signature Overrepresentation Analysis - Sigora} 
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Signature Overrepresentation Analysis
+
+This package implements the pathway analysis method SIGORA. For an in depth
+description of the method, please see our manuscript in PeerJ.  In short: a
+_GPS_ (gene pair signature) is a (weighted) pair of genes that _as
+a combination_ occurs only in a single pathway within a pathway repository.
+A query list is a vector containing a gene list of interest (e.g. genes that
+are differentially expressed in a particular condition).  A _present_
+GPS is a GPS for which both components are in the query list. SIGORA
+identifies relevant pathways based on the over-representation analysis of
+their (present) GPS.
+
+
+@section Getting started:
+
+
+To load the library:
+
+```{r}
+library("sigora")
+```
+
+# Motivation:
+
+A thought experiment Imagine you randomly selected 3 KEGG pathways, and then randomly selected a total of 50 genes from all genes that that are associated with any of these pathways. Using traditional methods (hypergeometric test using individual genes), how many pathways would you estimate to show up as statistically overrepresented in this
+"query list" of 50 genes?  
+
+Let us do this experiment!  Everything related to
+human KEGG Pathways can be found in `kegH`.  A function to randomly
+select $n$ genes from m randomly selected pathways is
+`genesFromRandomPathways`.  The traditional Overrepresentation Analysis
+(which is the basis for many popular tools) is available through `ora`.
+Putting these together:
+
+```{r}
+data(kegH)
+a1 <- genesFromRandomPathways(seed = 12345, kegH, 3, 50)
+## originally selected pathways:
+a1[["selectedPathways"]] ## what are the genes
+a1[["genes"]]
+## Traditional ora identifies dozens of statistically significant pathways!
+
+ora(a1[["genes"]], kegH) |> head()
+## Now let us try sigora with the same input:
+
+sigoraRes <-
+  sigora(GPSrepo = kegH,
+         queryList = a1[["genes"]],
+         level = 4)
+## Again, the three originally selected pathways were:
+a1[["selectedPathways"]]
+
+```
+
+You might want to rerun the above few lines of code with different values
+for `seed` and convince yourself that there indeed is a need for a new
+way of pathway analysis.
+
+# Available Pathway-GPS repositories in SIGORA:
+
+The current version of the package comes with precomputed GPS-repositories
+for __KEGG__ human and mouse (`kegH` and `kegM` respectively), as well as for
+__Reactome__ human and mouse (`reaH` and `reaM` respectively).  The package
+provides a function for creating GPS-repositories from user's own
+gene-function repository of choice (example __Gene Ontology Biological
+Processes__).  The following section describes this process of creating one's
+own GPS-repositories using the __PCI-NCI__ pathways from National Cancer
+Institute as an example.
+
+# Creating a GPS repository:
+
+You can create your own GPS repositories using the `makeGPS()` function.
+There are no particular
+requirements on the format of your source repository, except: it should be
+provided either a tab delimited file or a dataframe with \bold{three columns
+in the following order:
+- PathwayID, PathwayName, Gene.
+
+```{r}
+data(nciTable) ## what does the input look like?
+head(nciTable) ## create a SigObject. use the saveFile parameter for future reuse.
+data(idmap)
+nciH <- makeGPS(pathwayTable = nciTable, saveFile = NULL)
+ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
+ilnci <- sigora(queryList = ils,
+                GPSrepo = nciH,
+                level = 3)
+
+```
+
+# Analysing your data To preform Signature Overrepresentation:
+
+Analysis, use the function `sigora`.  For traditional
+Overrepresentation Analysis, use the function `ora`.
+
+# Exporting:
+
+Exporting the results Simply provide a file name to the
+`saveFile` parameter of `sigora`, i.e. (for the above
+experiment):
+
+```{r}
+sigRes <-
+  sigora(kegH,
+         queryList = a1$genes,
+         level = 2,
+         saveFile = NULL)
+
+```
+
+You will notice that the file also
+contains the list of the relevant genes from the query list in each pathway.
+The genes are listed as human readable gene symbols and sorted by their
+contribution to the statistical significance of the pathway.
+
+# Gene identifier mapping Mappings:
+
+between __ENSEMBL__-IDS, __ENTREZ__-IDS and Gene-Symbols are performed
+automatically.
+
+You can, for instance, create a __GPS__-repository using
+__ENSEMBL__-IDs and perform __Signature Overrepresentation Analysis__
+using this repository on a list of __ENTREZ__-IDs.
+
+```{r}
+data('kegH')
+data('idmap')
+barplot(
+  table(kegH$L1$degs),
+  col = "red",
+  main = "distribution of number of functions per gene in KEGG human pathways.",
+  ylab = "frequency",
+  xlab = "number of functions per gene"
+)
+## creating your own GPS repository
+nciH <- makeGPS(pathwayTable = load_data('nciTable'))
+ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
+## signature overrepresentation analysis:
+sigRes.ilnci <- sigora(queryList = ils,
+                       GPSrepo = nciH,
+                       level = 3)
+
+```
+
+
+# Session
+
+```{r}
+sessionInfo()
+```
