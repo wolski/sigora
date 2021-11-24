@@ -123,7 +123,7 @@ sigora <-
         "..."
       ))
     }
-    for (ind in 1:level) {
+    for (ind in seq_len(level)) {
       v1 <- GPSrepo[[paste("L", ind, sep = '')]]
       #v1<-GPSrepo[[eval(jj[ind])]]
       com1 <-
@@ -142,7 +142,7 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
     }
     colnames(hh) <- c("gene1", "gene2", "pathway", "weight")
     if (markers == TRUE) {
-      for (ind in 1:level) {
+      for (ind in seq_len(level)) {
         #v1<-GPSrepo[[eval(jj[ind])]]
         v1 <- GPSrepo[[paste("L", ind, sep = '')]]
         hh <- rbind(hh, cbind(v1$gs[v1$PU[, 1]],
@@ -188,14 +188,14 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
       )
     summary_results <-
       summary_results[with(summary_results, order(pvalues)), ]
-    rownames(summary_results) <- c(1:nrow(summary_results))
+    rownames(summary_results) <- seq_len(nrow(summary_results))
     print(summary_results[which(summary_results$Bonfer < 0.01), ])
     res <- list()
     res[["summary_results"]] <- summary_results
     res[["detailed_results"]] <- detailed_results
     if (!is.null(saveFile)) {
       Genes <- vector(mode = 'character', length = nrow(summary_results))
-      for (i in 1:nrow(summary_results)) {
+      for (i in seq_len(nrow(summary_results))) {
         v11 <- getGenes(res, i)
         if ("Symbol" %in% colnames(v11)) {
           Genes[i] <- paste(v11$Symbol, sep = "" , collapse = ";")

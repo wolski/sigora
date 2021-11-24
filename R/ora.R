@@ -82,6 +82,6 @@ ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
       "pvalues",
       "Bonfer")
   res <- res[with(res, order(pvalues)), ]
-  rownames(res) <- c(1:nrow(res))
+  rownames(res) <- c(seq_len(nrow(res)))
   return(res[which(as.numeric(res[, ncol(res)]) < 0.05), ])
 }

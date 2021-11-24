@@ -200,7 +200,7 @@ makeGPS <-
     res[['L4']] <- L4
     res[['L5']] <- L5
     res[['repoName']] <- repoName
-    res[['pathwaydescriptions']] <- unique(fG[, 1:2])
+    res[['pathwaydescriptions']] <- unique(fG[, seq_len(2)])
     res[["call"]] <- as.character(match.call())
     x1 <- as.character(repoName)
     if (!is.null(saveFile)) {
