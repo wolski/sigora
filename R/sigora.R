@@ -1,4 +1,4 @@
-.getWeightfunc <- function(){
+.getWeightfunc <- function() {
   weightfunc <- list()
   weightfunc$invhm <- function(a, b) {
     0.5 * ((1 / a) + (1 / b))
@@ -121,13 +121,13 @@ sigora <-
     ## mapping
     if (length(intersect(queryList, GPSrepo$origRepo[[2]])) == 0) {
       t1 <-
-        which.max(vapply(idmap, function(x){
-          length(intersect(
-            x, GPSrepo$origRepo[[2]]
-          ))}, FUN.VALUE = integer(1)))
+        which.max(vapply(idmap, function(x) {
+          length(intersect(x, GPSrepo$origRepo[[2]]))
+        }, FUN.VALUE = integer(1)))
       t2 <-
-        which.max(vapply(idmap, function(x){
-          length(intersect(x, queryList))}, FUN.VALUE = integer(1) ))
+        which.max(vapply(idmap, function(x) {
+          length(intersect(x, queryList))
+        }, FUN.VALUE = integer(1)))
       queryList <- idmap[which(idmap[, t2] %in% queryList), t1]
       print(paste(
         "Mapped identifiers from" ,
@@ -139,8 +139,8 @@ sigora <-
     }
     for (ind in seq_len(level)) {
       v1 <- GPSrepo[[paste("L", ind, sep = '')]]
-      weights <- weightfunc(v1$degs[v1$gs[v1$GPS[,1]]],
-                            v1$degs[v1$gs[v1$GPS[,2]]])
+      weights <- weightfunc(v1$degs[v1$gs[v1$GPS[, 1]]],
+                            v1$degs[v1$gs[v1$GPS[, 2]]])
       hh <- rbind(hh, cbind(v1$gs[v1$GPS[, 1]],
                             v1$gs[v1$GPS[, 2]],
                             v1$ps[v1$GPS[, 3]],
@@ -163,16 +163,19 @@ sigora <-
       ##TODO
     }
     hhd <-
-      (hh[hh[, 1] %in% queryList & hh[, 2] %in% queryList, , drop = FALSE])
+      (hh[hh[, 1] %in% queryList &
+            hh[, 2] %in% queryList, , drop = FALSE])
     k1 <-
       (stats::aggregate(as.numeric(hhd[, 4]), by = list(hhd[, 3]), FUN = sum))
-    kN <- (stats::aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN =
-                              sum))
+    kN <-
+      (stats::aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN =
+                          sum))
     sum(kN[, 2])
     sum(k1[, 2])
     ps <- stats::phyper(k1[, 2] - 1, kN[match(k1[, 1], kN[, 1]), 2],
-                        sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2], sum(k1[, 2]), lower.tail =
-                          F)
+                        sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2],
+                        sum(k1[, 2]),
+                        lower.tail = FALSE)
     ps <- signif(ps, digits = 4)
     Bonfer <-
       signif(stats::p.adjust(ps, n = length(unique(hh[, 3])), method = 'bonfer'), digits = 4)
