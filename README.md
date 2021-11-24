@@ -40,7 +40,7 @@ Author: Amir B.K. Foroushani
 remoteds::install_githug("wolski/sigora")
 ```
 
-For more informtion about the Sigora package see:
+For more information about the Sigora package, see:
 [wolski.github.io/sigora](wolski.github.io/sigora)
 
 
