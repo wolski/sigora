@@ -1,7 +1,7 @@
 Package: sigora
 Type: Package
 Title: Signature Overrepresentation Analysis
-Version: 3.0.5
+Version: 3.99.5
 Date: 2019-8-23
 Author: Amir B.K. Foroushani, Fiona S.L. Brinkman, David J. Lynn
 Maintainer: Amir Foroushani <sigora.dev@gmail.com>
@@ -46,3 +46,5 @@ License: GPL (>= 2)
 NeedsCompilation: no
 biocViews: 
 RoxygenNote: 7.1.2
+VignetteBuilder: knitr
+
