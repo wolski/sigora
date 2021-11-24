@@ -68,7 +68,7 @@ ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
     PPwys[match(names(npwys), names(PPwys))],
     length(GPSrepo$origRepo[[2]]) - PPwys[match(names(npwys), names(PPwys))],
     length(intersect(geneList, GPSrepo$origRepo[[2]])),
-    lower.tail = F
+    lower.tail = FALSE
   )
   ps <- signif(ps, digits = 4)
   res <-

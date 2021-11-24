@@ -206,8 +206,8 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
       utils::write.table(
         cbind(summary_results, Genes),
         file = saveFile,
-        quote = F,
-        row.names = F,
+        quote = FALSE,
+        row.names = FALSE,
         sep = '\t'
       )
     }
