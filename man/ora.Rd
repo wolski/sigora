@@ -38,7 +38,8 @@ traditional methods. \code{ora} is an implementation of the traditional
 
 data(kegM)
 ## select 50 genes from 3 mouse pathways
-a1<-genesFromRandomPathways(seed=345,kegM,3,50)
+set.seed(seed=345)
+a1<-genesFromRandomPathways(kegM,3,50)
 ## originally selected pathways:
 a1[["selectedPathways"]]
 ## compare to traditional methods results:

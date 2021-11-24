@@ -1,3 +1,29 @@
+.getWeightfunc <- function(){
+  weightfunc <- list()
+  weightfunc$invhm <- function(a, b) {
+    0.5 * ((1 / a) + (1 / b))
+  }
+  weightfunc$reciprod <- function(a, b) {
+    1 / (a * b)
+  }
+  weightfunc$jac <- function(a, b) {
+    1 / (a + b - 1)
+  }
+  weightfunc$topov <- function(a, b) {
+    1 / (apply(as.matrix(cbind(a, b)), FUN = min, MARGIN = 1))
+  }
+  weightfunc$cosine <- function(a, b) {
+    1 / (sqrt(a * b))
+  }
+  weightfunc$noweights <- function(a, b) {
+    rep(1, length(a))
+  }
+  weightfunc$justPUGs <- function(a, b) {
+    rep(0, length(a))
+  }
+  return(weightfunc)
+}
+
 #' Sigora's main function.
 #'
 #' This function determines which Signatures (GPS) from a collection of GPS
@@ -63,10 +89,10 @@
 #' sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=load_data('kegH'),level=2)
 #' ## user created GPS repository:
 #' nciH<-makeGPS(pathwayTable=load_data('nciTable'))
-#' sigRes.ilnci<-sigora(queryList=ils,GPSrepo=load_data('nciH'),level=2)
+#' sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)
 #' ## user defined weighting schemes :
 #' myfunc<-function(a,b){1/log(a+b)}
-#' sigora(queryList=ils,GPSrepo=load_data('nciH'),level=2, weighting.method ="myfunc")
+#' sigora(queryList=ils,GPSrepo=nciH,level=2, weighting.method = myfunc)
 #'
 sigora <-
   function(GPSrepo,
@@ -79,28 +105,16 @@ sigora <-
     ##` GPSrepo:Output of makeGPS
     ##` queryList: query list
     ##`
-    #get(data(idmap,envir=as.environment(parent.frame())))
-    invhm <- function(a, b) {
-      0.5 * ((1 / a) + (1 / b))
+    if ("character" %in% is(weighting.method)) {
+      WEIGHTMETHODS <- names(.getWeightfunc())
+      weighting.method <- pmatch(weighting.method, WEIGHTMETHODS)
+      weightfunc <- .getWeightfunc()[[weighting.method]]
+    } else if ("function" %in% is(weighting.method)) {
+      weightfunc <- weighting.method
+    } else {
+      stop("invalid parameter weighting.method")
     }
-    reciprod <- function(a, b) {
-      1 / (a * b)
-    }
-    jac <- function(a, b) {
-      1 / (a + b - 1)
-    }
-    topov <- function(a, b) {
-      1 / (apply(as.matrix(cbind(a, b)), FUN = min, MARGIN = 1))
-    }
-    cosine <- function(a, b) {
-      1 / (sqrt(a * b))
-    }
-    noweights <- function(a, b) {
-      rep(1, length(a))
-    }
-    justPUGs <- function(a, b) {
-      rep(0, length(a))
-    }
+
     hh <- NULL
     jj <- grep("^L", names(GPSrepo), value = TRUE)
     weights <- 0
@@ -125,15 +139,8 @@ sigora <-
     }
     for (ind in seq_len(level)) {
       v1 <- GPSrepo[[paste("L", ind, sep = '')]]
-      #v1<-GPSrepo[[eval(jj[ind])]]
-      com1 <-
-        paste(
-          "weights<-",
-          weighting.method,
-          "(v1$degs[v1$gs[v1$GPS[,1]]],
-v1$degs[v1$gs[v1$GPS[,2]]])"
-        )
-      eval(parse(text = com1))
+      weights <- weightfunc(v1$degs[v1$gs[v1$GPS[,1]]],
+                            v1$degs[v1$gs[v1$GPS[,2]]])
       hh <- rbind(hh, cbind(v1$gs[v1$GPS[, 1]],
                             v1$gs[v1$GPS[, 2]],
                             v1$ps[v1$GPS[, 3]],
@@ -160,12 +167,12 @@ v1$degs[v1$gs[v1$GPS[,2]]])"
     k1 <-
       (stats::aggregate(as.numeric(hhd[, 4]), by = list(hhd[, 3]), FUN = sum))
     kN <- (stats::aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN =
-                       sum))
+                              sum))
     sum(kN[, 2])
     sum(k1[, 2])
     ps <- stats::phyper(k1[, 2] - 1, kN[match(k1[, 1], kN[, 1]), 2],
-                 sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2], sum(k1[, 2]), lower.tail =
-                   F)
+                        sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2], sum(k1[, 2]), lower.tail =
+                          F)
     ps <- signif(ps, digits = 4)
     Bonfer <-
       signif(stats::p.adjust(ps, n = length(unique(hh[, 3])), method = 'bonfer'), digits = 4)

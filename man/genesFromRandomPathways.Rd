@@ -4,11 +4,9 @@
 \alias{genesFromRandomPathways}
 \title{Function to randomly select genes associated with randomly pathways.}
 \usage{
-genesFromRandomPathways(seed = 1234, GPSrepo, np, ng)
+genesFromRandomPathways(GPSrepo, np, ng)
 }
 \arguments{
-\item{seed}{A random seed.}
-
 \item{GPSrepo}{A signature repository (created by ..) or one of the
 precompiled options.}
 
@@ -31,7 +29,9 @@ performance to traditional overrepresentation tests.
 
 data('kegH')
 ## select 50 genes from 3 human KEGG pathways
-a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
+seed=1234
+set.seed(seed)
+a1<-genesFromRandomPathways(kegH,3,50)
 ## originally selected pathways:
 a1[["selectedPathways"]]
 ## what are the genes

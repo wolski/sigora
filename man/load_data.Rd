@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_data.R
 \name{load_data}
 \alias{load_data}
-\title{load data when lazyLoad true.}
+\title{load and return data when lazyLoad false insted of using data(datastr)}
 \usage{
 load_data(datastr, package = "sigora")
 }
@@ -11,6 +11,9 @@ load_data(datastr, package = "sigora")
 
 \item{package}{default sigora}
 }
+\value{
+returns the data
+}
 \description{
-load data when lazyLoad true.
+load and return data when lazyLoad false insted of using data(datastr)
 }

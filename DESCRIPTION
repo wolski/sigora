@@ -46,7 +46,7 @@ Description:
      Pathway-GPS data for pathways in the KEGG and  Reactome
      pathway repositories and mechanisms for extracting GPS
      for user-supplied repositories.
-License: GPL (>= 2)
+License: GPL-3 + file LICENSE
 NeedsCompilation: no
 biocViews: GeneSetEnrichment, GO, Software
 RoxygenNote: 7.1.2

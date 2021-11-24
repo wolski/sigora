@@ -23,8 +23,8 @@ implemented for results of Reactome or KEGG based analyses.
 \examples{
 
 data('kegH')
-
-a1<-genesFromRandomPathways(seed=12345,kegH,3,50)
+set.seed(seed=12345)
+a1<-genesFromRandomPathways(kegH,3,50)
 ## originally selected pathways:\cr
 a1[["selectedPathways"]]
 ## what are the genes
