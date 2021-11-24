@@ -1,3 +1,7 @@
+#' @importFrom methods is
+#'
+NULL
+
 #' Identifier mappings for protein coding genes.
 #'
 #' A mapping table for ENSEMBL, ENTREZ and gene names(HGNC/MGI symbols) of
