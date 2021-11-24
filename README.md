@@ -1,4 +1,16 @@
-# sigora
+# About the project
+
+This repository is a fork of cran/sigora repository 
+https://github.com/cran/sigora
+
+Package ‘sigora’ was removed from the CRAN repository.
+It was archived on 2021-04-10 as check problems were not corrected in time.
+
+
+The code changes made in the project aim at removing all ERROR's and WARNING's from the `R CMD check` and `BiocCheck`.
+
+# Pathway-GPS and SIGORA: identifying relevant pathways based on the over-representation of their gene-pair signatures
+
 
 Pathway Analysis is statistically linking observations on 
 the molecular level to biological processes or pathways on 
@@ -22,7 +34,7 @@ for user-supplied repositories.
 Author: Amir B.K. Foroushani
 
 
-# HowTO install
+# HowTO install the Sigora package
 
 ```{r}
 remoteds::install_githug("wolski/sigora")
@@ -30,4 +42,5 @@ remoteds::install_githug("wolski/sigora")
 
 For more informtion about the Sigora package see:
 [wolski.github.io/sigora](wolski.github.io/sigora)
+
 
