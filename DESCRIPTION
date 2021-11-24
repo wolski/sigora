@@ -23,9 +23,10 @@ Authors@R: c(
         )
 Depends: R (>= 4.1.0)
 Imports:
-  knitr,
   stats,
   slam
+Suggests:
+  knitr
 Description: 
      Pathway Analysis is statistically linking observations on 
      the molecular level to biological processes or pathways on 
