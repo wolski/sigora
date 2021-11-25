@@ -57,7 +57,7 @@ a1[["selectedPathways"]] ## what are the genes
 a1[["genes"]]
 ## Traditional ora identifies dozens of statistically significant pathways!
 
-ora(a1[["genes"]], kegH) |> head()
+head(ora(a1[["genes"]], kegH))
 ## Now let us try sigora with the same input:
 
 sigoraRes <-
