@@ -3,8 +3,6 @@ Type: Package
 Title: Signature Overrepresentation Analysis
 Version: 3.99.5
 Date: 2019-8-23
-Author: Amir B.K. Foroushani, Fiona S.L. Brinkman, David J. Lynn
-Maintainer: Amir Foroushani <sigora.dev@gmail.com>
 Authors@R: c(
         person("Amir", "Foroushani",
         email = c("sigora.dev@gmail.com"),
