@@ -19,7 +19,7 @@ Authors@R: c(
         role = c("cre"),
         comment = c(ORCID = "0000-0002-6468-120X"))
         )
-Depends: R (>= 4.1.0)
+Depends: R (>= 4.0.0)
 URL: https://github.com/wolski/sigora
 BugReports: https://github.com/wolski/sigora/issues
 Imports:
