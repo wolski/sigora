@@ -41,6 +41,6 @@ remoteds::install_githug("wolski/sigora")
 ```
 
 For more information about the Sigora package, see:
-[wolski.github.io/sigora](wolski.github.io/sigora)
+<a href="https://wolski.github.io/sigora/" target="_blank">wolski.github.io/sigora</a>
 
 
