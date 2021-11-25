@@ -1,7 +1,7 @@
 Package: sigora
 Type: Package
 Title: Signature Overrepresentation Analysis
-Version: 3.99.5
+Version: 3.0.6
 Date: 2019-8-23
 Authors@R: c(
         person("Amir", "Foroushani",
