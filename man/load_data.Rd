@@ -17,3 +17,7 @@ returns the data
 \description{
 load and return data when lazyLoad false insted of using data(datastr)
 }
+\examples{
+idmap <- load_data("idmap")
+
+}

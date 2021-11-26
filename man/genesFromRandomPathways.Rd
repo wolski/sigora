@@ -31,7 +31,7 @@ data('kegH')
 ## select 50 genes from 3 human KEGG pathways
 seed=1234
 set.seed(seed)
-a1<-genesFromRandomPathways(kegH,3,50)
+a1 <- genesFromRandomPathways(kegH,3,50)
 ## originally selected pathways:
 a1[["selectedPathways"]]
 ## what are the genes

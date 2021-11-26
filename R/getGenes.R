@@ -18,15 +18,15 @@
 #'
 #' data('kegH')
 #' set.seed(seed=12345)
-#' a1<-genesFromRandomPathways(kegH,3,50)
+#' a1 <- genesFromRandomPathways(kegH,3,50)
 #' ## originally selected pathways:\cr
 #' a1[["selectedPathways"]]
 #' ## what are the genes
 #' a1[["genes"]]
 #' ## sigora's results with this input:\cr
-#' sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],level = 2)
+#' sigoraRes <- sigora(GPSrepo = kegH, queryList = a1[["genes"]],level = 2)
 #' ## Genes related to the second most significant result:
-#' getGenes(sigoraRes,2)
+#' head(getGenes(sigoraRes,2))
 #'
 getGenes <- function(yy, i, idmap = load_data('idmap')) {
   #idmap<-get(data(idmap,envir=as.environment(parent.frame())))

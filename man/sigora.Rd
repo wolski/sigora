@@ -74,17 +74,18 @@ the present GPS and saves the results to the file specified in the
 \examples{
 
 ##query list
-ils<-grep("^IL",load_data('idmap')[["Symbol"]],value=TRUE)
+ils <- grep("^IL",load_data('idmap')[["Symbol"]],value=TRUE)
 ## using precompiled GPS repositories:
-sigRes.ilreact<-sigora(queryList=ils,GPSrepo=load_data('reaH'),level=4)
-sigRes.ilkeg<-sigora(queryList=ils,GPSrepo=load_data('kegH'),level=2)
+sigRes.ilreact <- sigora(queryList=ils,GPSrepo=load_data('reaH'),level=4)
+\donttest{
+sigRes.ilkeg <- sigora(queryList=ils,GPSrepo=load_data('kegH'),level=2)
 ## user created GPS repository:
 nciH<-makeGPS(pathwayTable=load_data('nciTable'))
 sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)
 ## user defined weighting schemes :
 myfunc<-function(a,b){1/log(a+b)}
 sigora(queryList=ils,GPSrepo=nciH,level=2, weighting.method = myfunc)
-
+}
 }
 \references{
 Foroushani AB, Brinkman FS and Lynn DJ
