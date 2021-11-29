@@ -5,8 +5,8 @@
 #'
 #'
 #' @name idmap
-#' @docType data
 #' @source www.ensembl.org/biomart/martview
+#' @docType data
 #' @keywords datasets
 #' @examples
 #'

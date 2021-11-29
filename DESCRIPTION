@@ -1,8 +1,8 @@
 Package: sigora
 Type: Package
 Title: Signature Overrepresentation Analysis
-Version: 3.1.0
-Date: 2019-8-23
+Version: 3.1.1
+Date: 2021-11-29
 Authors@R: c(
         person("Amir", "Foroushani",
         email = c("sigora.dev@gmail.com"),
