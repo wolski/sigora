@@ -38,9 +38,6 @@ NULL
 NULL
 
 
-
-
-
 #' Pathway GPS data, extracted from KEGG repository (Mouse).
 #'
 #' KEGG mouse pathway GPS data, extracted by \code{makeGPS}, default settings.
@@ -61,9 +58,6 @@ NULL
 #' ## maybe str(kegM) ; plot(kegM) ...
 #'
 NULL
-
-
-
 
 
 #' NCI human gene-pathway associations.
@@ -89,15 +83,14 @@ NULL
 #' @examples
 #'
 #' data(nciTable)
-#' nciH<-makeGPS(pathwayTable=load_data('nciTable'))
+#' nciH <- makeGPS(pathwayTable = load_data("nciTable"))
 #' data(idmap)
-#' ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
-#' ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
+#' ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
+#' ilnci <- sigora(
+#'   queryList = ils, GPSrepo = nciH, level = 3
+#' )
 #'
 NULL
-
-
-
 
 
 #' Pathway GPS data, extracted from the Reactome repository (Human).
@@ -122,9 +115,6 @@ NULL
 NULL
 
 
-
-
-
 #' Pathway GPS data, extracted from Reactome repository (Mouse).
 #'
 #' Reactome mouse pathway GPS data, extracted by \code{makeGPS}, default
@@ -146,8 +136,3 @@ NULL
 #' str(reaM)
 #'
 NULL
-
-
-
-
-

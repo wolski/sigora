@@ -22,7 +22,7 @@ implemented for results of Reactome or KEGG based analyses.
 }
 \examples{
 
-data('kegH')
+data("kegH")
 set.seed(seed=12345)
 a1<-genesFromRandomPathways(kegH,3,50)
 ## originally selected pathways:\cr
@@ -31,7 +31,8 @@ a1[["selectedPathways"]]
 a1[["genes"]]
 ## sigora's results with this input:\cr
 sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],level = 2)
-## Diagram for the most significant result, where the genes from our list are highlighted in red:
+## Diagram for the most significant result,
+## genes from our list are highlighted in red:
 getURL(sigoraRes,1)
 
 }

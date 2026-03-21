@@ -15,8 +15,9 @@ precompiled options.}
 \item{ng}{Number of genes to be selected.}
 }
 \value{
-\item{selectedPathways}{A vector containing the "np" originally
-selected pathways.} \item{genes}{ A vector containing the "ng" selected
+\item{selectedPathways}{A vector containing the "np"
+originally selected pathways.}
+\item{genes}{A vector containing the "ng" selected
 genes from selectedPathways.}
 }
 \description{
@@ -27,7 +28,7 @@ performance to traditional overrepresentation tests.
 }
 \examples{
 
-data('kegH')
+data("kegH")
 ## select 50 genes from 3 human KEGG pathways
 seed=1234
 set.seed(seed)
@@ -47,9 +48,9 @@ oraRes
 }
 \references{
 Foroushani AB, Brinkman FS and Lynn DJ
-(2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
-on the over-representation of their gene-pair signatures.}\emph{PeerJ},
-\bold{1}
+(2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant
+pathways based on the over-representation of their gene-pair
+signatures.}\emph{PeerJ}, \bold{1}
 }
 \seealso{
 \code{\link{sigora-package}}

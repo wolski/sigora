@@ -26,7 +26,8 @@ Imports:
   stats,
   slam
 Suggests:
-  knitr
+  knitr,
+  rmarkdown
 Description: 
      Pathway Analysis is statistically linking observations on 
      the molecular level to biological processes or pathways on 
@@ -46,9 +47,9 @@ Description:
      Pathway-GPS data for pathways in the KEGG and  Reactome
      pathway repositories and mechanisms for extracting GPS
      for user-supplied repositories.
+Encoding: UTF-8
 License: GPL-3
 NeedsCompilation: no
 biocViews: GeneSetEnrichment, GO, Software, Pathways, KEGG
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
-

@@ -10,18 +10,19 @@
 #' precompiled options.
 #' @param np How many pathways to select.
 #' @param ng Number of genes to be selected.
-#' @return \item{selectedPathways}{A vector containing the "np" originally
-#' selected pathways.} \item{genes}{ A vector containing the "ng" selected
+#' @return \item{selectedPathways}{A vector containing the "np"
+#' originally selected pathways.}
+#' \item{genes}{A vector containing the "ng" selected
 #' genes from selectedPathways.}
 #' @seealso \code{\link{sigora-package}}
 #' @references Foroushani AB, Brinkman FS and Lynn DJ
-#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
-#' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
-#' \bold{1}
+#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant
+#' pathways based on the over-representation of their gene-pair
+#' signatures.}\emph{PeerJ}, \bold{1}
 #' @keywords functions
 #' @examples
 #'
-#' data('kegH')
+#' data("kegH")
 #' ## select 50 genes from 3 human KEGG pathways
 #' seed=1234
 #' set.seed(seed)
@@ -45,15 +46,8 @@ genesFromRandomPathways <- function(GPSrepo, np, ng) {
   cat(paste(as.character(GPSrepo$origRepo[[1]])[p1], "\n"))
   g1 <- sample(unique(fr[fr[, 1] %in% p1, 2]), ng)
   queryList <- as.character(GPSrepo$origRepo[[2]])[g1]
-  ## cat("### Sigora returns: \n")
-  ## sigoraRes<-sigora(GPSrepo=GPSrepo,queryList=as.character(queryList),level=4)
-  ## cat("### traditional Overrepresntation Analysis would return: \n")
-  ##oraRes<-ora(queryList,GPSrepo)
-  ## print(oraRes)
   res <- list()
-  res[['genes']] <- queryList
-  res[['selectedPathways']] <- as.character(GPSrepo$origRepo[[1]])[p1]
-  ##res[['Sigora.Results']]<-sigoraRes
-  ##res[['ORA.Results']]<-oraRes
+  res[["genes"]] <- queryList
+  res[["selectedPathways"]] <- as.character(GPSrepo$origRepo[[1]])[p1]
   invisible(res)
 }

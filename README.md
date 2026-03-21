@@ -43,4 +43,34 @@ remoteds::install_githug("wolski/sigora")
 For more information about the Sigora package, see:
 <a href="https://wolski.github.io/sigora/" target="_blank">wolski.github.io/sigora</a>
 
+# CRAN submission
 
+1. Ensure a clean check with no errors, warnings, or notes:
+
+```bash
+make check
+```
+
+2. Run CRAN-specific incoming checks:
+
+```r
+devtools::check(remote = TRUE, manual = TRUE)
+```
+
+3. Submit to CRAN via `devtools::release()` (interactive, recommended):
+
+```r
+devtools::release()
+```
+
+Or manually:
+
+```bash
+# Build the tarball
+R CMD build .
+
+# Upload sigora_3.1.1.tar.gz at:
+# https://cran.r-project.org/submit.html
+```
+
+The manual form asks for the tarball, your name, email (must match the maintainer in DESCRIPTION), and an optional comment to CRAN reviewers. You will receive a confirmation email — the submission is not complete until you click the link in that email.

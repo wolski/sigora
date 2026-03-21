@@ -36,22 +36,32 @@
 #' dim(oraRes)
 #' oraRes
 #'
-ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
-  # idmap<-get(data(idmap,envir=as.environment(parent.frame())))
+ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
   fr <- GPSrepo$origRepo[[3]]
   sp1 <- GPSrepo$pathwaydescriptions
   if (length(intersect(geneList, GPSrepo$origRepo[[2]])) == 0) {
     t1 <-
-      which.max(vapply(idmap, function(x){
-        length(intersect(
-          x, GPSrepo$origRepo[[2]]
-        ))}, FUN.VALUE = integer(1)))
+      which.max(vapply(
+        idmap,
+        function(x) {
+          length(intersect(
+            x,
+            GPSrepo$origRepo[[2]]
+          ))
+        },
+        FUN.VALUE = integer(1)
+      ))
     t2 <-
-      which.max(vapply(idmap, function(x){
-        length(intersect(x, geneList))},FUN.VALUE = integer(1) ))
+      which.max(vapply(
+        idmap,
+        function(x) {
+          length(intersect(x, geneList))
+        },
+        FUN.VALUE = integer(1)
+      ))
     geneList <- idmap[which(idmap[, t2] %in% geneList), t1]
     print(paste(
-      "Mapped identifiers from" ,
+      "Mapped identifiers from",
       colnames(idmap)[t2],
       " to ",
       colnames(idmap)[t1],
@@ -67,21 +77,24 @@ ora <- function(geneList, GPSrepo, idmap = load_data('idmap')) {
   ps <- stats::phyper(
     npwys - 1,
     PPwys[match(names(npwys), names(PPwys))],
-    length(GPSrepo$origRepo[[2]]) - PPwys[match(names(npwys), names(PPwys))],
+    length(GPSrepo$origRepo[[2]]) -
+      PPwys[match(names(npwys), names(PPwys))],
     length(intersect(geneList, GPSrepo$origRepo[[2]])),
     lower.tail = FALSE
   )
   ps <- signif(ps, digits = 4)
   res <-
-    data.frame(nn, PPwys[match(names(npwys), names(PPwys))], as.numeric(ps), as.numeric(stats::p.adjust(ps, method =
-                                                                                                   'bonfer')))[, -4]
+    data.frame(
+      nn,
+      PPwys[match(names(npwys), names(PPwys))],
+      as.numeric(ps),
+      as.numeric(stats::p.adjust(ps, method = "bonfer"))
+    )[, -4]
   colnames(res) <-
-    c("pathwyid",
-      "description",
-      "success",
-      "pathwaySize",
-      "pvalues",
-      "Bonfer")
+    c(
+      "pathwyid", "description", "success",
+      "pathwaySize", "pvalues", "Bonfer"
+    )
   res <- res[with(res, order(pvalues)), ]
   rownames(res) <- c(seq_len(nrow(res)))
   return(res[which(as.numeric(res[, ncol(res)]) < 0.05), ])

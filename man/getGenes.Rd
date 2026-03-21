@@ -26,7 +26,7 @@ interest, odered by their contribution to the significance of the pathway.
 }
 \examples{
 
-data('kegH')
+data("kegH")
 set.seed(seed=12345)
 a1 <- genesFromRandomPathways(kegH,3,50)
 ## originally selected pathways:\cr

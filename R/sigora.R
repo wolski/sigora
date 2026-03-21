@@ -76,36 +76,48 @@
 #' (present Gene-Pair Signatures) for each pathway.}
 #' @seealso \code{\link{sigora-package}} , \code{\link{makeGPS}}
 #' @references Foroushani AB, Brinkman FS and Lynn DJ
-#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
-#' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
-#' \bold{1}
+#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant
+#' pathways based on the over-representation of their gene-pair
+#' signatures.}\emph{PeerJ}, \bold{1}
 #' @keywords functions
 #' @examples
 #'
-#' ##query list
-#' ils <- grep("^IL",load_data('idmap')[["Symbol"]],value=TRUE)
+#' ## query list
+#' ils <- grep(
+#'   "^IL", load_data("idmap")[["Symbol"]], value = TRUE
+#' )
 #' ## using precompiled GPS repositories:
-#' sigRes.ilreact <- sigora(queryList=ils,GPSrepo=load_data('reaH'),level=4)
+#' sigRes.ilreact <- sigora(
+#'   queryList = ils, GPSrepo = load_data("reaH"), level = 4
+#' )
 #' \donttest{
-#' sigRes.ilkeg <- sigora(queryList=ils,GPSrepo=load_data('kegH'),level=2)
+#' sigRes.ilkeg <- sigora(
+#'   queryList = ils, GPSrepo = load_data("kegH"), level = 2
+#' )
 #' ## user created GPS repository:
-#' nciH<-makeGPS(pathwayTable=load_data('nciTable'))
-#' sigRes.ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=2)
-#' ## user defined weighting schemes :
-#' myfunc<-function(a,b){1/log(a+b)}
-#' sigora(queryList=ils,GPSrepo=nciH,level=2, weighting.method = myfunc)
+#' nciH <- makeGPS(pathwayTable = load_data("nciTable"))
+#' sigRes.ilnci <- sigora(
+#'   queryList = ils, GPSrepo = nciH, level = 2
+#' )
+#' ## user defined weighting schemes:
+#' myfunc <- function(a, b) {
+#'   1 / log(a + b)
+#' }
+#' sigora(
+#'   queryList = ils, GPSrepo = nciH,
+#'   level = 2, weighting.method = myfunc
+#' )
 #' }
 sigora <-
-  function(GPSrepo,
-           level,
-           markers = FALSE,
-           queryList = NULL,
-           saveFile = NULL,
-           weighting.method = "invhm",
-           idmap = load_data('idmap')) {
-    ##` GPSrepo:Output of makeGPS
-    ##` queryList: query list
-    ##`
+  function(
+    GPSrepo,
+    level,
+    markers = FALSE,
+    queryList = NULL,
+    saveFile = NULL,
+    weighting.method = "invhm",
+    idmap = load_data("idmap")
+  ) {
     if ("character" %in% class(weighting.method)) {
       WEIGHTMETHODS <- names(.getWeightfunc())
       weighting.method <- pmatch(weighting.method, WEIGHTMETHODS)
@@ -122,16 +134,24 @@ sigora <-
     ## mapping
     if (length(intersect(queryList, GPSrepo$origRepo[[2]])) == 0) {
       t1 <-
-        which.max(vapply(idmap, function(x) {
-          length(intersect(x, GPSrepo$origRepo[[2]]))
-        }, FUN.VALUE = integer(1)))
+        which.max(vapply(
+          idmap,
+          function(x) {
+            length(intersect(x, GPSrepo$origRepo[[2]]))
+          },
+          FUN.VALUE = integer(1)
+        ))
       t2 <-
-        which.max(vapply(idmap, function(x) {
-          length(intersect(x, queryList))
-        }, FUN.VALUE = integer(1)))
+        which.max(vapply(
+          idmap,
+          function(x) {
+            length(intersect(x, queryList))
+          },
+          FUN.VALUE = integer(1)
+        ))
       queryList <- idmap[which(idmap[, t2] %in% queryList), t1]
       print(paste(
-        "Mapped identifiers from" ,
+        "Mapped identifiers from",
         colnames(idmap)[t2],
         " to ",
         colnames(idmap)[t1],
@@ -139,24 +159,30 @@ sigora <-
       ))
     }
     for (ind in seq_len(level)) {
-      v1 <- GPSrepo[[paste("L", ind, sep = '')]]
-      weights <- weightfunc(v1$degs[v1$gs[v1$GPS[, 1]]],
-                            v1$degs[v1$gs[v1$GPS[, 2]]])
-      hh <- rbind(hh, cbind(v1$gs[v1$GPS[, 1]],
-                            v1$gs[v1$GPS[, 2]],
-                            v1$ps[v1$GPS[, 3]],
-                            round(weights * 100) / 100))
+      v1 <- GPSrepo[[paste("L", ind, sep = "")]]
+      weights <- weightfunc(
+        v1$degs[v1$gs[v1$GPS[, 1]]],
+        v1$degs[v1$gs[v1$GPS[, 2]]]
+      )
+      hh <- rbind(
+        hh,
+        cbind(
+          v1$gs[v1$GPS[, 1]],
+          v1$gs[v1$GPS[, 2]],
+          v1$ps[v1$GPS[, 3]],
+          round(weights * 100) / 100
+        )
+      )
       rm(v1)
     }
     colnames(hh) <- c("gene1", "gene2", "pathway", "weight")
     if (markers == TRUE) {
       for (ind in seq_len(level)) {
-        #v1<-GPSrepo[[eval(jj[ind])]]
-        v1 <- GPSrepo[[paste("L", ind, sep = '')]]
-        hh <- rbind(hh, cbind(v1$gs[v1$PU[, 1]],
-                              v1$gs[v1$PUG[, 1]],
-                              v1$ps[v1$PUG[, 2]],
-                              1))
+        v1 <- GPSrepo[[paste("L", ind, sep = "")]]
+        hh <- rbind(
+          hh,
+          cbind(v1$gs[v1$PU[, 1]], v1$gs[v1$PUG[, 1]], v1$ps[v1$PUG[, 2]], 1)
+        )
         rm(v1)
       }
     }
@@ -164,26 +190,40 @@ sigora <-
       ##TODO
     }
     hhd <-
-      (hh[hh[, 1] %in% queryList &
-            hh[, 2] %in% queryList, , drop = FALSE])
+      (hh[hh[, 1] %in% queryList & hh[, 2] %in% queryList, , drop = FALSE])
     k1 <-
       (stats::aggregate(as.numeric(hhd[, 4]), by = list(hhd[, 3]), FUN = sum))
     kN <-
-      (stats::aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN =
-                          sum))
+      (stats::aggregate(as.numeric(hh[, 4]), by = list(hh[, 3]), FUN = sum))
     sum(kN[, 2])
     sum(k1[, 2])
-    ps <- stats::phyper(k1[, 2] - 1, kN[match(k1[, 1], kN[, 1]), 2],
-                        sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2],
-                        sum(k1[, 2]),
-                        lower.tail = FALSE)
+    ps <- stats::phyper(
+      k1[, 2] - 1,
+      kN[match(k1[, 1], kN[, 1]), 2],
+      sum(kN[, 2]) - kN[match(k1[, 1], kN[, 1]), 2],
+      sum(k1[, 2]),
+      lower.tail = FALSE
+    )
     ps <- signif(ps, digits = 4)
     Bonfer <-
-      signif(stats::p.adjust(ps, n = length(unique(hh[, 3])), method = 'bonfer'), digits = 4)
+      signif(
+        stats::p.adjust(
+          ps, n = length(unique(hh[, 3])), method = "bonfer"
+        ),
+        digits = 4
+      )
     sp1 <- GPSrepo$pathwaydescriptions
     summary_results <-
-      data.frame(k1[, 1], sp1[match(k1[, 1], sp1[, 1]), 2], ps, Bonfer, k1[, 2],
-                 kN[match(k1[, 1], kN[, 1]), 2], sum(kN[, 2]), sum(k1[, 2]))
+      data.frame(
+        k1[, 1],
+        sp1[match(k1[, 1], sp1[, 1]), 2],
+        ps,
+        Bonfer,
+        k1[, 2],
+        kN[match(k1[, 1], kN[, 1]), 2],
+        sum(kN[, 2]),
+        sum(k1[, 2])
+      )
     detailed_results <- hhd
     rownames(detailed_results) <- NULL
     colnames(summary_results) <-
@@ -205,12 +245,14 @@ sigora <-
     res[["summary_results"]] <- summary_results
     res[["detailed_results"]] <- detailed_results
     if (!is.null(saveFile)) {
-      Genes <- vector(mode = 'character', length = nrow(summary_results))
+      Genes <- vector(
+        mode = "character", length = nrow(summary_results)
+      )
       for (i in seq_len(nrow(summary_results))) {
         v11 <- getGenes(res, i)
         if ("Symbol" %in% colnames(v11)) {
-          Genes[i] <- paste(v11$Symbol, sep = "" , collapse = ";")
-        } else{
+          Genes[i] <- paste(v11$Symbol, sep = "", collapse = ";")
+        } else {
           Genes[i] <- paste(v11[, 1], sep = "", collapse = ";")
         }
       }
@@ -219,9 +261,8 @@ sigora <-
         file = saveFile,
         quote = FALSE,
         row.names = FALSE,
-        sep = '\t'
+        sep = "\t"
       )
     }
     invisible(res)
-    ##take a look at weget.cmbi.umcn.nl
   }

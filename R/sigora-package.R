@@ -21,8 +21,8 @@
 #' Maintainer: Witold Wolski <wew@fgcz.ethz.ch>
 #' @seealso \code{\link{sigora}}, \code{\link{makeGPS}}, \code{\link{ora}}
 #' @references Foroushani AB, Brinkman FS and Lynn DJ
-#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
-#' on the over-representation of their gene-pair signatures.}\emph{PeerJ},
-#' \bold{1}
+#' (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant
+#' pathways based on the over-representation of their gene-pair
+#' signatures.}\emph{PeerJ}, \bold{1}
 #' @keywords internal
 "_PACKAGE"

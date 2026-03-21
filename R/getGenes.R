@@ -16,7 +16,7 @@
 #' @keywords functions
 #' @examples
 #'
-#' data('kegH')
+#' data("kegH")
 #' set.seed(seed=12345)
 #' a1 <- genesFromRandomPathways(kegH,3,50)
 #' ## originally selected pathways:\cr
@@ -28,22 +28,34 @@
 #' ## Genes related to the second most significant result:
 #' head(getGenes(sigoraRes,2))
 #'
-getGenes <- function(yy, i, idmap = load_data('idmap')) {
-  #idmap<-get(data(idmap,envir=as.environment(parent.frame())))
+getGenes <- function(yy, i, idmap = load_data("idmap")) {
   yy1 <-
-    yy$detailed_results[which(yy$detailed_results[, 'pathway'] == yy$summary_results[i, 1]), , drop =
-                          FALSE]
-  ## pgs<-unique(as.character(as.vector(yy1[yy1[,4]==1,1:2])))
-  ## print(pgs)
-  r1 <- stats::aggregate(as.numeric(yy1[, 4]), by = list(yy1[, 1]), FUN = sum)
-  r2 <- stats::aggregate(as.numeric(yy1[, 4]), by = list(yy1[, 2]), FUN = sum)
-  r3 <- stats::aggregate(rbind(r1, r2)[, 2], by = list(rbind(r1, r2)[, 1]), FUN =
-                    sum)
+    yy$detailed_results[
+      which(yy$detailed_results[, "pathway"] == yy$summary_results[i, 1]),
+      ,
+      drop = FALSE
+    ]
+  r1 <- stats::aggregate(
+    as.numeric(yy1[, 4]), by = list(yy1[, 1]), FUN = sum
+  )
+  r2 <- stats::aggregate(
+    as.numeric(yy1[, 4]), by = list(yy1[, 2]), FUN = sum
+  )
+  r3 <- stats::aggregate(
+    rbind(r1, r2)[, 2],
+    by = list(rbind(r1, r2)[, 1]),
+    FUN = sum
+  )
   r4 <- as.data.frame(r3[order(-r3[, 2]), ])
   r4[, 2] <- 0.5 * r4[, 2]
   colnames(r4) <- c("gene", "contribution")
-  v1 <- vapply(idmap, function(x){
-    length(intersect(x, r4[, 1]))},FUN.VALUE = integer(1))
+  v1 <- vapply(
+    idmap,
+    function(x) {
+      length(intersect(x, r4[, 1]))
+    },
+    FUN.VALUE = integer(1)
+  )
   if (max(v1) > 0) {
     t1 <- which.max(v1)
     r4 <- cbind(r4, idmap[match(r4[, 1], idmap[, t1]), -t1])

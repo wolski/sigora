@@ -72,21 +72,22 @@ resulting GPS repository in future analyses!
 }
 \examples{
 
-data(nciTable); data(idmap)
+data(nciTable)
+data(idmap)
 ## what the input looks like:
 head(nciTable)
 ## create a SigObject. use the saveFile parameter for reuse.
 \donttest{
-nciH<-makeGPS(pathwayTable=load_data('nciTable'))
-ils<-grep("^IL",idmap[,"Symbol"],value=TRUE)
-ilnci<-sigora(queryList=ils,GPSrepo=nciH,level=3)
+nciH <- makeGPS(pathwayTable = load_data("nciTable"))
+ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
+ilnci <- sigora(queryList = ils, GPSrepo = nciH, level = 3)
 }
 }
 \references{
 Foroushani AB, Brinkman FS and Lynn DJ
-(2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant pathways based
-on the over-representation of their gene-pair signatures.}\emph{PeerJ},
-\bold{1}
+(2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant
+pathways based on the over-representation of their gene-pair
+signatures.}\emph{PeerJ}, \bold{1}
 }
 \seealso{
 \code{\link{sigora}}, \code{\link{sigora-package}}
