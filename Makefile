@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := check
 
-.PHONY: check check-fast build build-vignettes document test install lint format clean help
+.PHONY: check check-fast build build-vignettes document test install lint format clean help site deploy
 
 DOCUMENT_CMD = Rscript -e "devtools::document()"
 BUILD_CMD = Rscript -e "devtools::build()"
@@ -10,6 +10,8 @@ BUILD_VIGNETTES_CMD = Rscript -e "devtools::build_vignettes()"
 TEST_CMD = Rscript -e "devtools::test()"
 INSTALL_CMD = Rscript -e "devtools::install()"
 LINT_CMD = Rscript -e "lintr::lint_package()"
+SITE_CMD = Rscript -e "pkgdown::build_site()"
+DEPLOY_CMD = Rscript -e "pkgdown::deploy_to_branch()"
 
 help:
 	@echo "sigora development targets:"
@@ -25,6 +27,8 @@ help:
 	@echo "  make document   - generate roxygen2 docs"
 	@echo "  make build      - build tarball"
 	@echo "  make build-vignettes - build vignettes into inst/doc"
+	@echo "  make site      - build pkgdown site locally"
+	@echo "  make deploy    - build pkgdown site and push to gh-pages"
 
 document:
 	$(DOCUMENT_CMD)
@@ -54,6 +58,12 @@ lint:
 
 format:
 	air format .
+
+site: document
+	$(SITE_CMD)
+
+deploy: document
+	$(DEPLOY_CMD)
 
 clean:
 	rm -rf *.Rcheck
