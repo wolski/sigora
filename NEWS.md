@@ -1,3 +1,10 @@
+# sigora 3.2.0
+
+- Code formatted with air, linted with lintr.
+- Removed dead commented-out code.
+- Added Makefile with check, lint, format targets.
+- Added rmarkdown to Suggests.
+
 # sigora 3.1.1
 
 - Updated CITATION file to use `bibentry()` instead of deprecated `citEntry()`.
