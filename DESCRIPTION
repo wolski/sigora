@@ -15,7 +15,7 @@ Authors@R: c(
         email = c("sigora.dev@gmail.com"),
         role = c("aut")),
         person("Witold", "Wolski",
-        email = c("wew@fgcz.ethz.ch"),
+        email = c("witold.wolski@fgcz.uzh.ch"),
         role = c("cre"),
         comment = c(ORCID = "0000-0002-6468-120X"))
         )
