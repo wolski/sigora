@@ -2,50 +2,53 @@
 % Please edit documentation in R/ora.R
 \name{ora}
 \alias{ora}
-\title{Traditional Overrepresentation Analysis.}
+\title{Traditional Over-Representation Analysis.}
 \usage{
 ora(geneList, GPSrepo, idmap = load_data("idmap"))
 }
 \arguments{
 \item{geneList}{A vector containing the list of genes of interest (e.g.
-differentially expressed genes). Following Identifier types are supported:
-Gene Symbols, ENTREZ-IDs or ENSEMBL-IDs.}
+differentially expressed genes). The following identifier types are 
+supported: Gene Symbols, ENTREZ IDs or ENSEMBL IDs.}
 
 \item{GPSrepo}{A GPS-repository (either one of the provided precomputed GPS
 repositories) or one created by \code{makeGPS}.}
 
 \item{idmap}{A dataframe for converting between different gene-identifier
-types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not
+types (e.g. ENSEMBL, ENTREZ and HGNC Symbols). Most users do not
 need to set this argument, as there is a built-in conversion table.}
 }
 \value{
-A dataframe with individual gene ORA results.
+A data frame with individual gene ORA results, with Bonferroni 
+p-value < 0.05.
 }
 \description{
-Traditional Overrepresentation Analysis by hypergeometric test: pathways are
-treated as collections of individual genes and all genes are treated as
+Traditional over-representation Analysis by hypergeometric test: pathways are
+treated as collections of individual genes, and all genes are treated as
 equally informative. This function is provided for comparison of the results
 of traditional methods to Sigora.
 }
 \details{
 The primary purpose of \code{makeGPS} is to create a GPS repository. It
-does, however, retain the original "single gene"-"pathway" associations for
-the purpose of followup analyses, such as comparison of sigora-results to
-traditional methods. \code{ora} is an implementation of the traditional
-(individual gene) Overrepresentation Analysis.
+does, however, retain the original single gene-pathway associations for
+the purpose of followup analyses, such as comparison of Sigora's results
+to traditional methods. \code{ora} is an implementation of the traditional
+(individual gene) over-representation Analysis.
 }
 \examples{
 
+## Select 50 genes from 3 mouse pathways
 data(kegM)
-## select 50 genes from 3 mouse pathways
-set.seed(seed=345)
-a1<-genesFromRandomPathways(kegM,3,50)
-## originally selected pathways:
+set.seed(345)
+a1 <- genesFromRandomPathways(kegM, 3, 50)
+
+## Originally selected pathways
 a1[["selectedPathways"]]
-## compare to traditional methods results:
-oraRes <- ora(a1[["genes"]],kegM)
+
+## Compare to traditional methods results
+oraRes <- ora(a1[["genes"]], kegM)
 dim(oraRes)
-oraRes
+head(oraRes)
 
 }
 \seealso{

@@ -1,44 +1,48 @@
-#' Traditional Overrepresentation Analysis.
+#' Traditional Over-Representation Analysis.
 #'
-#' Traditional Overrepresentation Analysis by hypergeometric test: pathways are
-#' treated as collections of individual genes and all genes are treated as
+#' Traditional over-representation Analysis by hypergeometric test: pathways are
+#' treated as collections of individual genes, and all genes are treated as
 #' equally informative. This function is provided for comparison of the results
 #' of traditional methods to Sigora.
 #'
 #' The primary purpose of \code{makeGPS} is to create a GPS repository. It
-#' does, however, retain the original "single gene"-"pathway" associations for
-#' the purpose of followup analyses, such as comparison of sigora-results to
-#' traditional methods. \code{ora} is an implementation of the traditional
-#' (individual gene) Overrepresentation Analysis.
+#' does, however, retain the original single gene-pathway associations for
+#' the purpose of followup analyses, such as comparison of Sigora's results
+#' to traditional methods. \code{ora} is an implementation of the traditional
+#' (individual gene) over-representation Analysis.
 #'
 #' @export
 #' @param geneList A vector containing the list of genes of interest (e.g.
-#' differentially expressed genes). Following Identifier types are supported:
-#' Gene Symbols, ENTREZ-IDs or ENSEMBL-IDs.
+#' differentially expressed genes). The following identifier types are 
+#' supported: Gene Symbols, ENTREZ IDs or ENSEMBL IDs.
 #' @param GPSrepo A GPS-repository (either one of the provided precomputed GPS
 #' repositories) or one created by \code{makeGPS}.
 #' @param idmap A dataframe for converting between different gene-identifier
-#' types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not
+#' types (e.g. ENSEMBL, ENTREZ and HGNC Symbols). Most users do not
 #' need to set this argument, as there is a built-in conversion table.
-#' @return A dataframe with individual gene ORA results.
+#' @return A data frame with individual gene ORA results, with Bonferroni 
+#' p-value < 0.05.
 #' @seealso \code{\link{sigora-package}}
 #' @keywords functions
 #' @examples
-#'
+#' 
+#' ## Select 50 genes from 3 mouse pathways
 #' data(kegM)
-#' ## select 50 genes from 3 mouse pathways
-#' set.seed(seed=345)
-#' a1<-genesFromRandomPathways(kegM,3,50)
-#' ## originally selected pathways:
+#' set.seed(345)
+#' a1 <- genesFromRandomPathways(kegM, 3, 50)
+#' 
+#' ## Originally selected pathways
 #' a1[["selectedPathways"]]
-#' ## compare to traditional methods results:
-#' oraRes <- ora(a1[["genes"]],kegM)
+#' 
+#' ## Compare to traditional methods results
+#' oraRes <- ora(a1[["genes"]], kegM)
 #' dim(oraRes)
-#' oraRes
+#' head(oraRes)
 #'
 ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
   fr <- GPSrepo$origRepo[[3]]
   sp1 <- GPSrepo$pathwaydescriptions
+
   if (length(intersect(geneList, GPSrepo$origRepo[[2]])) == 0) {
     t1 <-
       which.max(vapply(
@@ -51,6 +55,7 @@ ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
         },
         FUN.VALUE = integer(1)
       ))
+    
     t2 <-
       which.max(vapply(
         idmap,
@@ -59,21 +64,27 @@ ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
         },
         FUN.VALUE = integer(1)
       ))
+    
     geneList <- idmap[which(idmap[, t2] %in% geneList), t1]
-    print(paste(
+
+    message(
       "Mapped identifiers from",
       colnames(idmap)[t2],
       " to ",
       colnames(idmap)[t1],
       "..."
-    ))
+    )
   }
+
   g1m <- match(geneList, GPSrepo$origRepo[[2]])
   frO <- fr[fr[, 2] %in% g1m, ]
   npwys <- table(as.character(GPSrepo$origRepo[[1]][(frO[, 1])]))
+  
   nn <-
     cbind(sp1[match(names(npwys), sp1[, 1]), ], as.numeric(as.vector(npwys)))
+  
   PPwys <- table(as.character(GPSrepo$origRepo[[1]][(fr[, 1])]))
+  
   ps <- stats::phyper(
     npwys - 1,
     PPwys[match(names(npwys), names(PPwys))],
@@ -82,7 +93,9 @@ ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
     length(intersect(geneList, GPSrepo$origRepo[[2]])),
     lower.tail = FALSE
   )
+
   ps <- signif(ps, digits = 4)
+  
   res <-
     data.frame(
       nn,
@@ -90,6 +103,7 @@ ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
       as.numeric(ps),
       as.numeric(stats::p.adjust(ps, method = "bonfer"))
     )[, -4]
+  
   colnames(res) <-
     c(
       "pathwyid",
@@ -99,7 +113,11 @@ ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
       "pvalues",
       "Bonfer"
     )
+  
   res <- res[with(res, order(pvalues)), ]
+  
   rownames(res) <- c(seq_len(nrow(res)))
-  return(res[which(as.numeric(res[, ncol(res)]) < 0.05), ])
+  res <- res[which(as.numeric(res[, ncol(res)]) < 0.05), ]
+
+  return(res)
 }
