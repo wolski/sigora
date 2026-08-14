@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^LICENSE$
+^Makefile$
+^CLAUDE\.md$
+^\.lintr$
+^doc$
+^Meta$
