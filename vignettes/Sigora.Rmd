@@ -1,7 +1,7 @@
 ---
 title: "SIGORA: Signature Over-Representation Analysis"
 author: "Witold Wolski"
-date: "24/06/2026"
+date: "14/08/2026"
 output: html_document
 vignette: >
   %\VignetteIndexEntry{SIGORA: Signature Over-Representation Analysis}
