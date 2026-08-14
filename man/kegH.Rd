@@ -3,14 +3,14 @@
 \docType{data}
 \name{kegH}
 \alias{kegH}
-\title{Pathway GPS data, extracted from KEGG repository (Human).}
+\title{Pathway GPS data, extracted from KEGG repository (human).}
 \source{
 <http://www.genome.jp/kegg/pathway.html>
 }
 \description{
 KEGG human pathway GPS data, extracted by \code{makeGPS}, default settings.
 This data can be used by \code{sigora} to preform signature
-overrepresenation.
+over-representation.
 }
 \examples{
 
