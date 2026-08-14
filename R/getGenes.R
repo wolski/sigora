@@ -36,10 +36,14 @@ getGenes <- function(yy, i, idmap = load_data("idmap")) {
       drop = FALSE
     ]
   r1 <- stats::aggregate(
-    as.numeric(yy1[, 4]), by = list(yy1[, 1]), FUN = sum
+    as.numeric(yy1[, 4]),
+    by = list(yy1[, 1]),
+    FUN = sum
   )
   r2 <- stats::aggregate(
-    as.numeric(yy1[, 4]), by = list(yy1[, 2]), FUN = sum
+    as.numeric(yy1[, 4]),
+    by = list(yy1[, 2]),
+    FUN = sum
   )
   r3 <- stats::aggregate(
     rbind(r1, r2)[, 2],

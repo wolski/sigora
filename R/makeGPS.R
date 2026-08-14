@@ -84,7 +84,7 @@ makeGPS <-
         table(fG$pwys) < (1 + maxGenesperPathway) &
           table(fG$pwys) >
             (minGenesperPathway -
-               1)
+              1)
       )]
 
     fG <- fG[which(fG$gns %in% valGenes & fG$pwys %in% valPathways), ]
@@ -184,7 +184,12 @@ makeGPS <-
     x1 <- as.character(repoName)
     if (!is.null(saveFile)) {
       cmd2 <- paste(
-        "save(", x1, ", file='", saveFile, "')", sep = ""
+        "save(",
+        x1,
+        ", file='",
+        saveFile,
+        "')",
+        sep = ""
       )
       assign(x1, res)
       eval(parse(text = cmd2))

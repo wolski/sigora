@@ -92,8 +92,12 @@ ora <- function(geneList, GPSrepo, idmap = load_data("idmap")) {
     )[, -4]
   colnames(res) <-
     c(
-      "pathwyid", "description", "success",
-      "pathwaySize", "pvalues", "Bonfer"
+      "pathwyid",
+      "description",
+      "success",
+      "pathwaySize",
+      "pvalues",
+      "Bonfer"
     )
   res <- res[with(res, order(pvalues)), ]
   rownames(res) <- c(seq_len(nrow(res)))

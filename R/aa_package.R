@@ -75,7 +75,7 @@ NULL
 #' Using this created \code{GPS repository} one can preform Signature
 #' Over-representation Analysis on lists of genes of interest.
 #'
-#' 
+#'
 #' @name nciTable
 #' @docType data
 #' @source

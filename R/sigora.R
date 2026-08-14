@@ -208,7 +208,9 @@ sigora <-
     Bonfer <-
       signif(
         stats::p.adjust(
-          ps, n = length(unique(hh[, 3])), method = "bonfer"
+          ps,
+          n = length(unique(hh[, 3])),
+          method = "bonfer"
         ),
         digits = 4
       )
@@ -246,7 +248,8 @@ sigora <-
     res[["detailed_results"]] <- detailed_results
     if (!is.null(saveFile)) {
       Genes <- vector(
-        mode = "character", length = nrow(summary_results)
+        mode = "character",
+        length = nrow(summary_results)
       )
       for (i in seq_len(nrow(summary_results))) {
         v11 <- getGenes(res, i)
