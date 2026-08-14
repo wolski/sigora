@@ -28,12 +28,12 @@ to consider. Recommended value for KEGG: 2, for Reactome: 4.}
 with only one pathway into account (i.e. should pathway unique genes/PUGs be
 considered GPS?). Recommended value: TRUE (1).}
 
-\item{queryList}{A user specified list of genes of interest ('query list'),
+\item{queryList}{A user specified list of genes of interest ("query list"),
 as a vector of ENSEMBL/ ENTREZ IDs or gene symbols (HGNC/MGI).}
 
 \item{saveFile}{If provided, the results are saved here as a tab delimited
-File (including , for each pathway, a list of genes ordered by their
-contribution to the statistical significance of the pathway).}
+file, including, for each pathway, a list of genes ordered by their
+contribution to the statistical significance of the pathway.}
 
 \item{weighting.method}{The weighting method or GPS. The default weighting
 scheme for the GPS is the reciproc of the harmonic mean of the degrees of
@@ -73,31 +73,38 @@ the present GPS and saves the results to the file specified in the
 }
 \examples{
 
-## query list
+## Query list
 ils <- grep(
   "^IL", load_data("idmap")[["Symbol"]], value = TRUE
 )
-## using precompiled GPS repositories:
+
+## Using precompiled GPS repositories
 sigRes.ilreact <- sigora(
   queryList = ils, GPSrepo = load_data("reaH"), level = 4
 )
+
 \donttest{
-sigRes.ilkeg <- sigora(
-  queryList = ils, GPSrepo = load_data("kegH"), level = 2
-)
-## user created GPS repository:
-nciH <- makeGPS(pathwayTable = load_data("nciTable"))
-sigRes.ilnci <- sigora(
-  queryList = ils, GPSrepo = nciH, level = 2
-)
-## user defined weighting schemes:
-myfunc <- function(a, b) {
-  1 / log(a + b)
-}
-sigora(
-  queryList = ils, GPSrepo = nciH,
-  level = 2, weighting.method = myfunc
-)
+  sigRes.ilkeg <- sigora(
+    queryList = ils, GPSrepo = load_data("kegH"), level = 2
+  )
+
+  ## User created GPS repository
+  nciH <- makeGPS(pathwayTable = load_data("nciTable"))
+  sigRes.ilnci <- sigora(
+    queryList = ils, GPSrepo = nciH, level = 2
+  )
+
+  ## User defined weighting schemes
+  myfunc <- function(a, b) {
+    1 / log(a + b)
+  }
+
+  sigora(
+    queryList = ils, 
+    GPSrepo = nciH,
+    level = 2,
+    weighting.method = myfunc
+  )
 }
 }
 \references{
