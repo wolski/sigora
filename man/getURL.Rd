@@ -2,7 +2,7 @@
 % Please edit documentation in R/getURL.R
 \name{getURL}
 \alias{getURL}
-\title{Highlight the relevant genes for a specific pathway in its pathway diagram}
+\title{Highlight the relevant genes for a specific pathway in its diagram}
 \usage{
 getURL(yy, i)
 }
@@ -18,22 +18,31 @@ original query list are highlighted.
 \description{
 This function highlights the genes involved in the present GPS for a pathway
 of interest in its diagram. Please note that this functionality is only
-implemented for results of Reactome or KEGG based analyses.
+implemented for results of Reactome- or KEGG-based analyses.
 }
 \examples{
 
 data("kegH")
-set.seed(seed=12345)
-a1<-genesFromRandomPathways(kegH,3,50)
-## originally selected pathways:\cr
+set.seed(12345)
+
+a1 <- genesFromRandomPathways(kegH, 3, 50)
+
+## Originally selected pathways
 a1[["selectedPathways"]]
-## what are the genes
+
+## What are the genes?
 a1[["genes"]]
-## sigora's results with this input:\cr
-sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],level = 2)
-## Diagram for the most significant result,
-## genes from our list are highlighted in red:
-getURL(sigoraRes,1)
+
+## Sigora's results with this input
+sigoraRes <- sigora(
+  GPSrepo = kegH,
+  queryList = a1[["genes"]],
+  level = 2
+)
+
+## Diagram for the most significant result;
+## genes from our list are highlighted in red
+getURL(sigoraRes, 1)
 
 }
 \seealso{
