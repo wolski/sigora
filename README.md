@@ -39,6 +39,12 @@ warnings from `R CMD check` and `BiocCheck`.
 
 ## How to install SIGORA
 
+From CRAN:
+```r
+install.packages("sigora")
+```
+
+From Github:
 ```r
 remotes::install_github("wolski/sigora")
 ```

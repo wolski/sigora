@@ -13,8 +13,6 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Signature Over-Representation Analysis
-
 This package implements the pathway analysis method SIGORA. For an in depth
 description of the method, please see our manuscript in 
 [PeerJ](http://dx.doi.org/10.7717/peerj.229). In short: a _GPS_ (gene pair 
@@ -27,7 +25,7 @@ GPS is a GPS for which both components are in the query list. SIGORA
 identifies relevant pathways based on the over-representation analysis of
 their (present) GPS.
 
-@section Getting started
+# Getting started
 
 To load the library:
 
