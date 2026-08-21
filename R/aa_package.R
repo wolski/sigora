@@ -84,7 +84,7 @@ NULL
 #' @examples
 #'
 #' data(nciTable, idmap)
-#' nciH <- makeGPS(pathwayTable = load_data("nciTable"))
+#' nciH <- makeGPS(pathwayTable = nciTable)
 #' ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
 #' ilnci <- sigora(
 #'   queryList = ils, GPSrepo = nciH, level = 3

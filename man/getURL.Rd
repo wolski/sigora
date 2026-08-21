@@ -22,7 +22,7 @@ implemented for results of Reactome- or KEGG-based analyses.
 }
 \examples{
 
-data("kegH")
+data(kegH)
 set.seed(12345)
 
 a1 <- genesFromRandomPathways(kegH, 3, 50)

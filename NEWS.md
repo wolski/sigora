@@ -1,7 +1,7 @@
 # sigora 3.3.12
 
 - Tidied and improved documentation for functions and data objects
-- Replaced `print()` or `cat` statements with `message()` as appropriate
+- Replaced `print()` or `cat()` statements with `message()` as appropriate
 
 # sigora 3.2.0
 

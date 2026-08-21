@@ -1,5 +1,5 @@
 #' Load and return data when lazyLoad false insted of using data(datastr)
-#' 
+#'
 #' @param datastr name of datasets
 #' @param package default sigora
 #' @return Returns the data object

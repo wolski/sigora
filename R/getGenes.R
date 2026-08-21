@@ -5,7 +5,7 @@
 #' interest, ordered by their contribution to the significance of the pathway.
 #'
 #' @export
-#' 
+#'
 #' @param yy A sigora analysis result object (created by \code{sigora}).
 #' @param i The rank position of the pathway of interest in summary_results.
 #' @param idmap A data frame for converting between different gene identifier
@@ -17,24 +17,24 @@
 #' @keywords functions
 #' @examples
 #'
-#' data("kegH")
+#' data(kegH)
 #' set.seed(12345)
-#' 
+#'
 #' a1 <- genesFromRandomPathways(kegH, 3, 50)
-#' 
+#'
 #' ## Originally selected pathways
 #' a1[["selectedPathways"]]
-#' 
+#'
 #' ## What are the genes?
 #' a1[["genes"]]
-#' 
+#'
 #' ## Sigora's results with this input:
 #' sigoraRes <- sigora(
 #'   GPSrepo = kegH,
 #'   queryList = a1[["genes"]],
 #'   level = 2
 #' )
-#' 
+#'
 #' ## Genes related to the two most significant result
 #' head(getGenes(sigoraRes, 2))
 #'
@@ -45,19 +45,19 @@ getGenes <- function(yy, i, idmap = load_data("idmap")) {
       ,
       drop = FALSE
     ]
-  
+
   r1 <- stats::aggregate(
     as.numeric(yy1[, 4]),
     by = list(yy1[, 1]),
     FUN = sum
   )
-  
+
   r2 <- stats::aggregate(
     as.numeric(yy1[, 4]),
     by = list(yy1[, 2]),
     FUN = sum
   )
-  
+
   r3 <- stats::aggregate(
     rbind(r1, r2)[, 2],
     by = list(rbind(r1, r2)[, 1]),
@@ -76,7 +76,7 @@ getGenes <- function(yy, i, idmap = load_data("idmap")) {
     },
     FUN.VALUE = integer(1)
   )
-  
+
   if (max(v1) > 0) {
     t1 <- which.max(v1)
     r4 <- cbind(r4, idmap[match(r4[, 1], idmap[, t1]), -t1])

@@ -5,7 +5,7 @@
 #' implemented for results of Reactome- or KEGG-based analyses.
 #'
 #' @export
-#' 
+#'
 #' @param yy A sigora analysis result object (created by \code{sigora}).
 #' @param i The rank position of the pathway of interest in summary_results.
 #' @return The URL of the pathway diagram, where the relevant genes from your
@@ -14,24 +14,24 @@
 #' @keywords functions
 #' @examples
 #'
-#' data("kegH")
+#' data(kegH)
 #' set.seed(12345)
-#' 
+#'
 #' a1 <- genesFromRandomPathways(kegH, 3, 50)
-#' 
+#'
 #' ## Originally selected pathways
 #' a1[["selectedPathways"]]
-#' 
+#'
 #' ## What are the genes?
 #' a1[["genes"]]
-#' 
+#'
 #' ## Sigora's results with this input
 #' sigoraRes <- sigora(
 #'   GPSrepo = kegH,
 #'   queryList = a1[["genes"]],
 #'   level = 2
 #' )
-#' 
+#'
 #' ## Diagram for the most significant result;
 #' ## genes from our list are highlighted in red
 #' getURL(sigoraRes, 1)
@@ -47,7 +47,7 @@ getURL <- function(yy, i) {
     )
 
   if (repo == "rea") {
-    message("Assuming this is a result from Reactome...\n")
+    message("Assuming this is a result from Reactome...")
     url <-
       paste(
         "https://reactome.org/ContentService/exporter/diagram//",

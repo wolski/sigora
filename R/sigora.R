@@ -86,30 +86,30 @@
 #' ils <- grep(
 #'   "^IL", load_data("idmap")[["Symbol"]], value = TRUE
 #' )
-#' 
+#'
 #' ## Using precompiled GPS repositories
 #' sigRes.ilreact <- sigora(
 #'   queryList = ils, GPSrepo = load_data("reaH"), level = 4
 #' )
-#' 
+#'
 #' \donttest{
 #'   sigRes.ilkeg <- sigora(
 #'     queryList = ils, GPSrepo = load_data("kegH"), level = 2
 #'   )
-#' 
+#'
 #'   ## User created GPS repository
 #'   nciH <- makeGPS(pathwayTable = load_data("nciTable"))
 #'   sigRes.ilnci <- sigora(
 #'     queryList = ils, GPSrepo = nciH, level = 2
 #'   )
-#' 
+#'
 #'   ## User defined weighting schemes
 #'   myfunc <- function(a, b) {
 #'     1 / log(a + b)
 #'   }
-#' 
+#'
 #'   sigora(
-#'     queryList = ils, 
+#'     queryList = ils,
 #'     GPSrepo = nciH,
 #'     level = 2,
 #'     weighting.method = myfunc
@@ -125,7 +125,6 @@ sigora <-
     weighting.method = "invhm",
     idmap = load_data("idmap")
   ) {
-    
     if ("character" %in% class(weighting.method)) {
       WEIGHTMETHODS <- names(.getWeightfunc())
       weighting.method <- pmatch(weighting.method, WEIGHTMETHODS)
@@ -150,7 +149,7 @@ sigora <-
           },
           FUN.VALUE = integer(1)
         ))
-      
+
       t2 <-
         which.max(vapply(
           idmap,
@@ -159,10 +158,10 @@ sigora <-
           },
           FUN.VALUE = integer(1)
         ))
-      
+
       queryList <- idmap[which(idmap[, t2] %in% queryList), t1]
       message(
-        "Mapped identifiers from",
+        "Mapped identifiers from ",
         colnames(idmap)[t2],
         " to ",
         colnames(idmap)[t1],
@@ -189,7 +188,7 @@ sigora <-
     }
 
     colnames(hh) <- c("gene1", "gene2", "pathway", "weight")
-    
+
     if (markers == TRUE) {
       for (ind in seq_len(level)) {
         v1 <- GPSrepo[[paste("L", ind, sep = "")]]
@@ -222,7 +221,7 @@ sigora <-
     )
 
     ps <- signif(ps, digits = 4)
-    
+
     Bonfer <-
       signif(
         stats::p.adjust(
@@ -232,9 +231,9 @@ sigora <-
         ),
         digits = 4
       )
-    
+
     sp1 <- GPSrepo$pathwaydescriptions
-    
+
     summary_results <-
       data.frame(
         k1[, 1],
@@ -246,10 +245,10 @@ sigora <-
         sum(kN[, 2]),
         sum(k1[, 2])
       )
-    
+
     detailed_results <- hhd
     rownames(detailed_results) <- NULL
-    
+
     colnames(summary_results) <-
       c(
         "pathwy.id",
@@ -261,16 +260,18 @@ sigora <-
         "N",
         "sample.size"
       )
-    
+
     summary_results <-
       summary_results[with(summary_results, order(pvalues)), ]
 
     rownames(summary_results) <- seq_len(nrow(summary_results))
-    
+
+    print(summary_results[which(summary_results$Bonfer < 0.01), ])
+
     res <- list()
     res[["summary_results"]] <- summary_results
     res[["detailed_results"]] <- detailed_results
-    
+
     if (!is.null(saveFile)) {
       Genes <- vector(
         mode = "character",

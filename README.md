@@ -33,6 +33,7 @@ https://github.com/cran/sigora
 
 Package **SIGORA** was removed from the CRAN repository and
 archived on 2021-04-10 as check problems were not corrected in time.
+It has since been updated and is now available from CRAN once more.
 
 The code changes made in the project aim at removing all errors and
 warnings from `R CMD check` and `BiocCheck`.

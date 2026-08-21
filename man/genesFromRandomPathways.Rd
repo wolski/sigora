@@ -7,7 +7,7 @@
 genesFromRandomPathways(GPSrepo, np, ng)
 }
 \arguments{
-\item{GPSrepo}{A signature repository (created by 
+\item{GPSrepo}{A signature repository (created by
 \code{makeGPS()}) or one of the precompiled options.}
 
 \item{np}{How many pathways to select}
@@ -28,9 +28,10 @@ performance to traditional over-representation tests.
 }
 \examples{
 
-data("kegH")
+data(kegH)
+
 ## Select 50 genes from 3 human KEGG pathways
-set.seed(1234)
+set.seed(12345)
 a1 <- genesFromRandomPathways(kegH, 3, 50)
 
 ## Originally selected pathways
@@ -45,16 +46,14 @@ sigoraRes <- sigora(
   GPSrepo = kegH,
   level = 4
 )
-dim(sigoraRes)
-sigoraRes
+head(sigoraRes$summary_results)
 
 ## Compare to traditional methods results
 oraRes <- ora(
   geneList = a1[["genes"]],
   GPSrepo = kegH
 )
-dim(oraRes)
-oraRes
+head(oraRes)
 
 }
 \references{

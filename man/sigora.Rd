@@ -100,7 +100,7 @@ sigRes.ilreact <- sigora(
   }
 
   sigora(
-    queryList = ils, 
+    queryList = ils,
     GPSrepo = nciH,
     level = 2,
     weighting.method = myfunc

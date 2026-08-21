@@ -8,7 +8,7 @@ ora(geneList, GPSrepo, idmap = load_data("idmap"))
 }
 \arguments{
 \item{geneList}{A vector containing the list of genes of interest (e.g.
-differentially expressed genes). The following identifier types are 
+differentially expressed genes). The following identifier types are
 supported: Gene Symbols, ENTREZ IDs or ENSEMBL IDs.}
 
 \item{GPSrepo}{A GPS-repository (either one of the provided precomputed GPS
@@ -19,7 +19,7 @@ types (e.g. ENSEMBL, ENTREZ and HGNC Symbols). Most users do not
 need to set this argument, as there is a built-in conversion table.}
 }
 \value{
-A data frame with individual gene ORA results, with Bonferroni 
+A data frame with individual gene ORA results, with Bonferroni
 p-value < 0.05.
 }
 \description{
@@ -39,7 +39,7 @@ to traditional methods. \code{ora} is an implementation of the traditional
 
 ## Select 50 genes from 3 mouse pathways
 data(kegM)
-set.seed(345)
+set.seed(12345)
 a1 <- genesFromRandomPathways(kegM, 3, 50)
 
 ## Originally selected pathways

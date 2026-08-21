@@ -17,7 +17,7 @@
 #' comparison of Sigora's results to traditional methods. \code{ora} is an
 #' implementation of the traditional (individual gene) Overrepresentation
 #' Analysis.
-#' 
+#'
 #' @export
 #' @param pathwayTable A data frame describing gene-pathway associations in
 #' following format: pathwayID, pathwayName, Gene. Either pathwayTable or fn
@@ -51,17 +51,17 @@
 #' @examples
 #'
 #' data(nciTable, idmap)
-#' 
+#'
 #' ## What the input looks like
 #' head(nciTable)
-#' 
+#'
 #' ## Create a SigObject. Use the "saveFile" parameter for reuse.
 #' \donttest{
 #'   nciH <- makeGPS(pathwayTable = nciTable)
 #'   ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
 #'   ilnci <- sigora(queryList = ils, GPSrepo = nciH, level = 3)
 #' }
-#' 
+#'
 makeGPS <-
   function(
     pathwayTable = NULL,
@@ -73,7 +73,6 @@ makeGPS <-
     maxGenesperPathway = 500,
     minGenesperPathway = 10
   ) {
-
     if (is.null(pathwayTable)) {
       fG <-
         utils::read.table(fn, header = TRUE, sep = "\t", quote = "@")
@@ -100,7 +99,7 @@ makeGPS <-
     L5 <- NULL
 
     t1 <- Sys.time()
-    
+
     makedictionary <- function(y1) {
       upw <- unique(y1$pwys)
       ugn <- unique(y1$gns)
@@ -139,25 +138,25 @@ makeGPS <-
       S1 <- PUG[match(GP[, 1], PUG[, 1]), 2]
       S2 <- PUG[match(GP[, 2], PUG[, 1]), 2]
       S <- ifelse(is.na(S1), S2, S1)
-      
+
       rm(M)
       gc(TRUE)
-      
+
       for (h1 in which(is.na(S))) {
         S[h1] <- which(m[GP[h1, 1], ] + m[GP[h1, 2], ] == 2)
       }
-      
+
       GPS <- cbind(GP, S)
-      message(Sys.time() - t1)
-      
+      message("Elapsed: ", format(Sys.time() - t1))
+
       rm(m)
-      
+
       degs <- table(as.character(f1$gns))
       pwyszs <- table(as.character(f1$pwys))
-      
+
       rownames(GPS) <- NULL
       rownames(PUG) <- NULL
-      
+
       invisible(list(
         "GPS" = GPS,
         "PUG" = PUG,
@@ -202,7 +201,7 @@ makeGPS <-
     res[["call"]] <- as.character(match.call())
 
     x1 <- as.character(repoName)
-    
+
     if (!is.null(saveFile)) {
       cmd2 <- paste(
         "save(",

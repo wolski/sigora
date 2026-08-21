@@ -6,8 +6,8 @@
 #' performance to traditional over-representation tests.
 #'
 #' @export
-#' 
-#' @param GPSrepo A signature repository (created by 
+#'
+#' @param GPSrepo A signature repository (created by
 #' \code{makeGPS()}) or one of the precompiled options.
 #' @param np How many pathways to select
 #' @param ng Number of genes to select
@@ -23,33 +23,32 @@
 #' @keywords functions
 #' @examples
 #'
-#' data("kegH")
+#' data(kegH)
+#'
 #' ## Select 50 genes from 3 human KEGG pathways
-#' set.seed(1234)
+#' set.seed(12345)
 #' a1 <- genesFromRandomPathways(kegH, 3, 50)
-#' 
+#'
 #' ## Originally selected pathways
 #' a1[["selectedPathways"]]
-#' 
+#'
 #' ## What are the genes?
 #' a1[["genes"]]
-#' 
+#'
 #' ## Sigora's results
 #' sigoraRes <- sigora(
 #'   queryList = a1[["genes"]],
 #'   GPSrepo = kegH,
 #'   level = 4
 #' )
-#' dim(sigoraRes)
-#' sigoraRes
-#' 
+#' head(sigoraRes$summary_results)
+#'
 #' ## Compare to traditional methods results
 #' oraRes <- ora(
 #'   geneList = a1[["genes"]],
 #'   GPSrepo = kegH
 #' )
-#' dim(oraRes)
-#' oraRes
+#' head(oraRes)
 #'
 genesFromRandomPathways <- function(GPSrepo, np, ng) {
   fr <- GPSrepo$origRepo[[3]]
@@ -59,7 +58,7 @@ genesFromRandomPathways <- function(GPSrepo, np, ng) {
     "Randomly selected pathways are:\n",
     paste(as.character(GPSrepo$origRepo[[1]])[p1], "\n")
   )
-  
+
   g1 <- sample(unique(fr[fr[, 1] %in% p1, 2]), ng)
   queryList <- as.character(GPSrepo$origRepo[[2]])[g1]
   res <- list()
