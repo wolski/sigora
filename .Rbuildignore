@@ -7,3 +7,9 @@
 ^\.lintr$
 ^doc$
 ^Meta$
+^AGENTS\.md$
+^\.githooks$
+^\.github$
+^air\.toml$
+^make$
+^.*\.BiocCheck$
