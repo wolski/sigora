@@ -1,7 +1,7 @@
 #' Identifier mappings for protein coding genes.
 #'
-#' A mapping table for ENSEMBL, ENTREZ and gene names(HGNC/MGI symbols) of
-#' Human and mouse protein coding gene.
+#' A mapping table for ENSEMBL, ENTREZ and gene names (HGNC/MGI symbols) of
+#' human and mouse protein coding gene.
 #'
 #'
 #' @name idmap
@@ -15,11 +15,11 @@
 #'
 NULL
 
-#' Pathway GPS data, extracted from KEGG repository (Human).
+#' Pathway GPS data, extracted from KEGG repository (human).
 #'
 #' KEGG human pathway GPS data, extracted by \code{makeGPS}, default settings.
 #' This data can be used by \code{sigora} to preform signature
-#' overrepresenation.
+#' over-representation.
 #'
 #'
 #' @name kegH
@@ -38,11 +38,11 @@ NULL
 NULL
 
 
-#' Pathway GPS data, extracted from KEGG repository (Mouse).
+#' Pathway GPS data, extracted from KEGG repository (mouse).
 #'
 #' KEGG mouse pathway GPS data, extracted by \code{makeGPS}, default settings.
 #' This data can be used by \code{sigora} to preform signature
-#' overrepresenation.
+#' over-representation.
 #'
 #'
 #' @name kegM
@@ -55,7 +55,7 @@ NULL
 #' @examples
 #'
 #' data(kegM)
-#' ## maybe str(kegM) ; plot(kegM) ...
+#' str(kegM)
 #'
 NULL
 
@@ -67,13 +67,14 @@ NULL
 #' expected format for the input data to \code{makeGPS}.
 #'
 #' This dataset is provided to illustrate how to create your own GPS
-#' repositories.\code{nciTable} is a dataframe with threecolumns corresponding
-#' to pathwayId, pathwayName and gene.  Each row describes the association
-#' between an individual gene and a PID-NCI pathway.  As you see in the
+#' repositories.\code{nciTable} is a dataframe with three columns corresponding
+#' to pathwayId, pathwayName and gene. Each row describes the association
+#' between an individual gene and a PID-NCI pathway. As you see in the
 #' \code{examples}, section, one can convert this dataframe to a \code{GPS
 #' repository} using \code{makeGPS}, and save the results for future reuse.
-#' Using the thus created \code{GPS repository} one can preform Signature
-#' Overrepresentation Analysis on lists of genes of interest.
+#' Using this created \code{GPS repository} one can preform Signature
+#' Over-representation Analysis on lists of genes of interest.
+#'
 #'
 #' @name nciTable
 #' @docType data
@@ -82,9 +83,8 @@ NULL
 #' @keywords datasets
 #' @examples
 #'
-#' data(nciTable)
-#' nciH <- makeGPS(pathwayTable = load_data("nciTable"))
-#' data(idmap)
+#' data(nciTable, idmap)
+#' nciH <- makeGPS(pathwayTable = nciTable)
 #' ils <- grep("^IL", idmap[, "Symbol"], value = TRUE)
 #' ilnci <- sigora(
 #'   queryList = ils, GPSrepo = nciH, level = 3
@@ -93,11 +93,11 @@ NULL
 NULL
 
 
-#' Pathway GPS data, extracted from the Reactome repository (Human).
+#' Pathway GPS data, extracted from the Reactome repository (human).
 #'
 #' Reactome human pathway GPS data, extracted by \code{makeGPS}, default
 #' settings. This data can be used by \code{sigora} to preform signature
-#' overrepresenation.
+#' over-representation.
 #'
 #'
 #' @name reaH
@@ -110,16 +110,16 @@ NULL
 #' @examples
 #'
 #' data(reaH)
-#' ## maybe str(reaH) ;  ...
+#' str(reaH)
 #'
 NULL
 
 
-#' Pathway GPS data, extracted from Reactome repository (Mouse).
+#' Pathway GPS data, extracted from Reactome repository (mouse).
 #'
 #' Reactome mouse pathway GPS data, extracted by \code{makeGPS}, default
 #' settings. This data can be used by \code{sigora} to preform signature
-#' overrepresenation.
+#' over-representation.
 #'
 #'
 #' @name reaM

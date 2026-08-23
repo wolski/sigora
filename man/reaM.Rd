@@ -3,14 +3,14 @@
 \docType{data}
 \name{reaM}
 \alias{reaM}
-\title{Pathway GPS data, extracted from Reactome repository (Mouse).}
+\title{Pathway GPS data, extracted from Reactome repository (mouse).}
 \source{
 <http://www.reactome.org/>
 }
 \description{
 Reactome mouse pathway GPS data, extracted by \code{makeGPS}, default
 settings. This data can be used by \code{sigora} to preform signature
-overrepresenation.
+over-representation.
 }
 \examples{
 

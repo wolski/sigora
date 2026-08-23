@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_data.R
 \name{load_data}
 \alias{load_data}
-\title{load and return data when lazyLoad false insted of using data(datastr)}
+\title{Load and return data when lazyLoad false insted of using data(datastr)}
 \usage{
 load_data(datastr, package = "sigora")
 }
@@ -12,10 +12,10 @@ load_data(datastr, package = "sigora")
 \item{package}{default sigora}
 }
 \value{
-returns the data
+Returns the data object
 }
 \description{
-load and return data when lazyLoad false insted of using data(datastr)
+Load and return data when lazyLoad false insted of using data(datastr)
 }
 \examples{
 idmap <- load_data("idmap")

@@ -2,31 +2,41 @@
 #' summary_results
 #'
 #' This function lists the genes involved in the present GPS for a pathway of
-#' interest, odered by their contribution to the significance of the pathway.
+#' interest, ordered by their contribution to the significance of the pathway.
 #'
 #' @export
+#'
 #' @param yy A sigora analysis result object (created by \code{sigora}).
 #' @param i The rank position of the pathway of interest in summary_results.
-#' @param idmap A dataframe for converting between different gene-identifier
-#' types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not
+#' @param idmap A data frame for converting between different gene identifier
+#' types (e.g. ENSEMBL, ENTREZ and HGNC symbols). Most users do not
 #' need to set this argument, as there is a built-in conversion table.
-#' @return A table (dataframe) with ids of the relevant genes, ranked by their
+#' @return A table (data frame) with ids of the relevant genes, ranked by their
 #' contribution to the statistical significance of the pathway.
 #' @seealso \code{\link{sigora}}
 #' @keywords functions
 #' @examples
 #'
-#' data("kegH")
-#' set.seed(seed=12345)
-#' a1 <- genesFromRandomPathways(kegH,3,50)
-#' ## originally selected pathways:\cr
+#' data(kegH)
+#' set.seed(12345)
+#'
+#' a1 <- genesFromRandomPathways(kegH, 3, 50)
+#'
+#' ## Originally selected pathways
 #' a1[["selectedPathways"]]
-#' ## what are the genes
+#'
+#' ## What are the genes?
 #' a1[["genes"]]
-#' ## sigora's results with this input:\cr
-#' sigoraRes <- sigora(GPSrepo = kegH, queryList = a1[["genes"]],level = 2)
-#' ## Genes related to the second most significant result:
-#' head(getGenes(sigoraRes,2))
+#'
+#' ## Sigora's results with this input:
+#' sigoraRes <- sigora(
+#'   GPSrepo = kegH,
+#'   queryList = a1[["genes"]],
+#'   level = 2
+#' )
+#'
+#' ## Genes related to the two most significant result
+#' head(getGenes(sigoraRes, 2))
 #'
 getGenes <- function(yy, i, idmap = load_data("idmap")) {
   yy1 <-
@@ -35,20 +45,30 @@ getGenes <- function(yy, i, idmap = load_data("idmap")) {
       ,
       drop = FALSE
     ]
+
   r1 <- stats::aggregate(
-    as.numeric(yy1[, 4]), by = list(yy1[, 1]), FUN = sum
+    as.numeric(yy1[, 4]),
+    by = list(yy1[, 1]),
+    FUN = sum
   )
+
   r2 <- stats::aggregate(
-    as.numeric(yy1[, 4]), by = list(yy1[, 2]), FUN = sum
+    as.numeric(yy1[, 4]),
+    by = list(yy1[, 2]),
+    FUN = sum
   )
+
   r3 <- stats::aggregate(
     rbind(r1, r2)[, 2],
     by = list(rbind(r1, r2)[, 1]),
     FUN = sum
   )
+
   r4 <- as.data.frame(r3[order(-r3[, 2]), ])
   r4[, 2] <- 0.5 * r4[, 2]
+
   colnames(r4) <- c("gene", "contribution")
+
   v1 <- vapply(
     idmap,
     function(x) {
@@ -56,10 +76,12 @@ getGenes <- function(yy, i, idmap = load_data("idmap")) {
     },
     FUN.VALUE = integer(1)
   )
+
   if (max(v1) > 0) {
     t1 <- which.max(v1)
     r4 <- cbind(r4, idmap[match(r4[, 1], idmap[, t1]), -t1])
   }
+
   rownames(r4) <- NULL
-  r4
+  return(r4)
 }

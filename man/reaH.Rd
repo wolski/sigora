@@ -3,19 +3,19 @@
 \docType{data}
 \name{reaH}
 \alias{reaH}
-\title{Pathway GPS data, extracted from the Reactome repository (Human).}
+\title{Pathway GPS data, extracted from the Reactome repository (human).}
 \source{
 <http://www.reactome.org/>
 }
 \description{
 Reactome human pathway GPS data, extracted by \code{makeGPS}, default
 settings. This data can be used by \code{sigora} to preform signature
-overrepresenation.
+over-representation.
 }
 \examples{
 
 data(reaH)
-## maybe str(reaH) ;  ...
+str(reaH)
 
 }
 \references{

@@ -3,19 +3,19 @@
 \docType{data}
 \name{kegM}
 \alias{kegM}
-\title{Pathway GPS data, extracted from KEGG repository (Mouse).}
+\title{Pathway GPS data, extracted from KEGG repository (mouse).}
 \source{
 <http://www.genome.jp/kegg/pathway.html>
 }
 \description{
 KEGG mouse pathway GPS data, extracted by \code{makeGPS}, default settings.
 This data can be used by \code{sigora} to preform signature
-overrepresenation.
+over-representation.
 }
 \examples{
 
 data(kegM)
-## maybe str(kegM) ; plot(kegM) ...
+str(kegM)
 
 }
 \references{

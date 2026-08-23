@@ -2,17 +2,17 @@
 % Please edit documentation in R/genesFromRandomPathways.R
 \name{genesFromRandomPathways}
 \alias{genesFromRandomPathways}
-\title{Function to randomly select genes associated with randomly pathways.}
+\title{Function to randomly select genes associated with random pathways.}
 \usage{
 genesFromRandomPathways(GPSrepo, np, ng)
 }
 \arguments{
-\item{GPSrepo}{A signature repository (created by ..) or one of the
-precompiled options.}
+\item{GPSrepo}{A signature repository (created by
+\code{makeGPS()}) or one of the precompiled options.}
 
-\item{np}{How many pathways to select.}
+\item{np}{How many pathways to select}
 
-\item{ng}{Number of genes to be selected.}
+\item{ng}{Number of genes to select}
 }
 \value{
 \item{selectedPathways}{A vector containing the "np"
@@ -23,31 +23,41 @@ genes from selectedPathways.}
 \description{
 This function first randomly selects a number (np) of pathways, then
 randomly selects a number (ng) of genes that are associated with at least
-one of the selected pathways.  The function can be used to compare Sigora's
-performance to traditional overrepresentation tests.
+one of the selected pathways. The function can be used to compare Sigora's
+performance to traditional over-representation tests.
 }
 \examples{
 
-data("kegH")
-## select 50 genes from 3 human KEGG pathways
-seed=1234
-set.seed(seed)
-a1 <- genesFromRandomPathways(kegH,3,50)
-## originally selected pathways:
+data(kegH)
+
+## Select 50 genes from 3 human KEGG pathways
+set.seed(12345)
+a1 <- genesFromRandomPathways(kegH, 3, 50)
+
+## Originally selected pathways
 a1[["selectedPathways"]]
-## what are the genes
+
+## What are the genes?
 a1[["genes"]]
-## sigora's results
-sigoraRes <- sigora(GPSrepo =kegH, queryList = a1[["genes"]],
-        level = 4)
-## compare to traditional methods results:
-oraRes <- ora(a1[["genes"]],kegH)
-dim(oraRes)
-oraRes
+
+## Sigora's results
+sigoraRes <- sigora(
+  queryList = a1[["genes"]],
+  GPSrepo = kegH,
+  level = 4
+)
+head(sigoraRes$summary_results)
+
+## Compare to traditional methods results
+oraRes <- ora(
+  geneList = a1[["genes"]],
+  GPSrepo = kegH
+)
+head(oraRes)
 
 }
 \references{
-Foroushani AB, Brinkman FS and Lynn DJ
+Foroushani AB, Brinkman FS, and Lynn DJ
 (2013).\dQuote{Pathway-GPS and SIGORA: identifying relevant
 pathways based on the over-representation of their gene-pair
 signatures.}\emph{PeerJ}, \bold{1}

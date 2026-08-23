@@ -12,31 +12,40 @@ getGenes(yy, i, idmap = load_data("idmap"))
 
 \item{i}{The rank position of the pathway of interest in summary_results.}
 
-\item{idmap}{A dataframe for converting between different gene-identifier
-types (e.g. ENSEMBL, ENTREZ and HGNC-Symbols of genes). Most users do not
+\item{idmap}{A data frame for converting between different gene identifier
+types (e.g. ENSEMBL, ENTREZ and HGNC symbols). Most users do not
 need to set this argument, as there is a built-in conversion table.}
 }
 \value{
-A table (dataframe) with ids of the relevant genes, ranked by their
+A table (data frame) with ids of the relevant genes, ranked by their
 contribution to the statistical significance of the pathway.
 }
 \description{
 This function lists the genes involved in the present GPS for a pathway of
-interest, odered by their contribution to the significance of the pathway.
+interest, ordered by their contribution to the significance of the pathway.
 }
 \examples{
 
-data("kegH")
-set.seed(seed=12345)
-a1 <- genesFromRandomPathways(kegH,3,50)
-## originally selected pathways:\cr
+data(kegH)
+set.seed(12345)
+
+a1 <- genesFromRandomPathways(kegH, 3, 50)
+
+## Originally selected pathways
 a1[["selectedPathways"]]
-## what are the genes
+
+## What are the genes?
 a1[["genes"]]
-## sigora's results with this input:\cr
-sigoraRes <- sigora(GPSrepo = kegH, queryList = a1[["genes"]],level = 2)
-## Genes related to the second most significant result:
-head(getGenes(sigoraRes,2))
+
+## Sigora's results with this input:
+sigoraRes <- sigora(
+  GPSrepo = kegH,
+  queryList = a1[["genes"]],
+  level = 2
+)
+
+## Genes related to the two most significant result
+head(getGenes(sigoraRes, 2))
 
 }
 \seealso{

@@ -8,8 +8,8 @@
 www.ensembl.org/biomart/martview
 }
 \description{
-A mapping table for ENSEMBL, ENTREZ and gene names(HGNC/MGI symbols) of
-Human and mouse protein coding gene.
+A mapping table for ENSEMBL, ENTREZ and gene names (HGNC/MGI symbols) of
+human and mouse protein coding gene.
 }
 \examples{
 

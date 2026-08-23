@@ -1,7 +1,8 @@
-#' load and return data when lazyLoad false insted of using data(datastr)
+#' Load and return data when lazyLoad false insted of using data(datastr)
+#'
 #' @param datastr name of datasets
 #' @param package default sigora
-#' @return returns the data
+#' @return Returns the data object
 #' @export
 #' @examples
 #' idmap <- load_data("idmap")
