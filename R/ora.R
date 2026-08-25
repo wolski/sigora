@@ -1,6 +1,6 @@
 #' Traditional Over-Representation Analysis.
 #'
-#' Traditional over-representation Analysis by hypergeometric test: pathways are
+#' Traditional over-representation analysis by hypergeometric test: pathways are
 #' treated as collections of individual genes, and all genes are treated as
 #' equally informative. This function is provided for comparison of the results
 #' of traditional methods to Sigora.
@@ -9,7 +9,7 @@
 #' does, however, retain the original single gene-pathway associations for
 #' the purpose of followup analyses, such as comparison of Sigora's results
 #' to traditional methods. \code{ora} is an implementation of the traditional
-#' (individual gene) over-representation Analysis.
+#' (individual gene) over-representation analysis.
 #'
 #' @export
 #' @param geneList A vector containing the list of genes of interest (e.g.
