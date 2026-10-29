@@ -56,7 +56,7 @@ genesFromRandomPathways <- function(GPSrepo, np, ng) {
 
   message(
     "Randomly selected pathways are:\n",
-    paste(as.character(GPSrepo$origRepo[[1]])[p1], "\n")
+    paste(as.character(GPSrepo$origRepo[[1]])[p1], collapse = "\n")
   )
 
   g1 <- sample(unique(fr[fr[, 1] %in% p1, 2]), ng)

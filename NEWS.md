@@ -1,3 +1,7 @@
+# sigora 3.3.18
+
+- Implemented unit tests for all functions via [testthat](https://testthat.r-lib.org/index.html)
+
 # sigora 3.3.12
 
 - Tidied and improved documentation for functions and data objects

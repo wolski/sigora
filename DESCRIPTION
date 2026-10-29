@@ -1,7 +1,7 @@
 Package: sigora
 Type: Package
 Title: Signature Over-Representation Analysis
-Version: 3.3.12
+Version: 3.3.18
 Date: 2026-08-14
 Authors@R: c(
         person("Amir", "Foroushani",
@@ -26,8 +26,9 @@ Imports:
   stats,
   slam
 Suggests:
-  knitr,
-  rmarkdown
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
 Description:
      Pathway analysis is a method of statistically linking observations 
      on the molecular level to biological processes or pathways on
@@ -53,3 +54,4 @@ NeedsCompilation: no
 biocViews: GeneSetEnrichment, GO, Software, Pathways, KEGG
 RoxygenNote: 7.3.3
 VignetteBuilder: knitr
+Config/testthat/edition: 3

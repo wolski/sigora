@@ -44,8 +44,8 @@ sigoraRes <- sigora(
   level = 2
 )
 
-## Genes related to the two most significant result
-head(getGenes(sigoraRes, 2))
+## Genes related to the first significant result
+head(getGenes(sigoraRes, 1))
 
 }
 \seealso{

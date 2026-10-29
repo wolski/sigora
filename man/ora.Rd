@@ -23,7 +23,7 @@ A data frame with individual gene ORA results, with Bonferroni
 p-value < 0.05.
 }
 \description{
-Traditional over-representation Analysis by hypergeometric test: pathways are
+Traditional over-representation analysis by hypergeometric test: pathways are
 treated as collections of individual genes, and all genes are treated as
 equally informative. This function is provided for comparison of the results
 of traditional methods to Sigora.
@@ -33,7 +33,7 @@ The primary purpose of \code{makeGPS} is to create a GPS repository. It
 does, however, retain the original single gene-pathway associations for
 the purpose of followup analyses, such as comparison of Sigora's results
 to traditional methods. \code{ora} is an implementation of the traditional
-(individual gene) over-representation Analysis.
+(individual gene) over-representation analysis.
 }
 \examples{
 
