@@ -64,7 +64,11 @@ getGenes <- function(yy, i, idmap = load_data("idmap")) {
     FUN = sum
   )
 
-  r4 <- as.data.frame(r3[order(-r3[, 2]), ])
+  # Round before ordering so float noise cannot reorder tied genes across
+  # platforms; break ties by gene ID in C-locale order.
+  r4 <- as.data.frame(
+    r3[order(-round(r3[, 2], 10), r3[, 1], method = "radix"), ]
+  )
   r4[, 2] <- 0.5 * r4[, 2]
 
   colnames(r4) <- c("gene", "contribution")

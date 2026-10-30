@@ -1,6 +1,7 @@
 # sigora 3.3.18
 
 - Implemented unit tests for all functions via [testthat](https://testthat.r-lib.org/index.html)
+- `getGenes()` (and so `getURL()`) orders genes with equal contribution by gene ID, so the order no longer depends on the platform
 
 # sigora 3.3.12
 
