@@ -19,6 +19,7 @@ Authors@R: c(
         role = c("cre"),
         comment = c(ORCID = "0000-0002-6468-120X")),
         person("Travis", "Blimkie",
+        email = c("travis.m.blimkie@gmail.com"),
         role = c("aut"))
         )
 Depends: R (>= 3.0.0)
